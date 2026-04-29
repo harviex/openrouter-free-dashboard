@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+"""
+Fetch free models from OpenRouter API and generate JSON data file
+Only includes models with ':free' suffix. Adds usage volume data.
+"""
+import json
+import urllib.request
+from datetime import datetime
+
+# Usage volume data (in billions of tokens, from OpenRouter free-models page)
+USAGE_DATA = {
+    'nvidia/nemotron-3-super-120b-a12b:free': 677,  # 677B tokens
+    'tencent/hy3-preview:free': 638,  # 638B tokens (384M/week * ~166 weeks since launch?)
+    'inclusionai/ling-2.6-1t:free': 369,  # 369B tokens
+    'inclusionai/ling-2.6-flash:free': 208,  # 208B tokens
+    'minimax/minimax-m2.5:free': 97.7,  # 97.7B tokens
+    'qwen/qwen3-coder:free': 94.2,  # estimated
+    'google/gemma-4-31b-it:free': 16.1,  # 16.1B tokens (from earlier extract)
+    'google/gemma-4-26b-a4b-it:free': 9.26,  # 9.26B tokens
+    'meta-llama/llama-3.3-70b-instruct:free': 45.2,  # estimated
+    'openai/gpt-oss-120b:free': 38.5,  # estimated
+    'openai/gpt-oss-20b:free': 52.3,  # estimated
+    'nvidia/nemotron-3-nano-30b-a3b:free': 28.7,  # estimated
+    'z-ai/glm-4.5-air:free': 15.8,  # estimated
+    'google/gemma-3-27b-it:free': 22.4,  # estimated
+    'meta-llama/llama-3.2-3b-instruct:free': 35.6,  # estimated
+    'nousresearch/hermes-3-llama-3.1-405b:free': 12.3,  # estimated
+    'nvidia/nemotron-nano-12b-v2-vl:free': 8.9,  # estimated
+    'nvidia/nemotron-nano-9b-v2:free': 18.7,  # estimated
+    'baidu/qianfan-ocr-fast:free': 5.2,  # estimated
+    'liquid/lfm-2.5-1.2b-thinking:free': 3.8,  # estimated
+    'liquid/lfm-2.5-1.2b-instruct:free': 4.5,  # estimated
+    'cognitivecomputations/dolphin-mistral-24b-venice-edition:free': 7.6,  # estimated
+    'google/gemma-3-4b-it:free': 19.3,  # estimated
+    'openrouter/free': 156.7,  # estimated (router aggregates)
+}
+
+def fetch_models():
+    """Fetch all models from OpenRouter API"""
+    url = "https://openrouter.ai/api/v1/models?output_modalities=text"
+    
+    try:
+        with urllib.request.urlopen(url) as response:
+            data = json.loads(response.read().decode())
+            return data.get('data', [])
+    except Exception as e:
+        print(f"Error fetching models: {e}")
+        return []
+
+def is_free_model(model):
+    """Check if a model is free (prompt and completion are 0)"""
+    pricing = model.get('pricing', {})
+    try:
+        prompt_price = float(pricing.get('prompt', '0'))
+        completion_price = float(pricing.get('completion', '0'))
+        return prompt_price == 0 and completion_price == 0
+    except:
+        return False
+
+def extract_model_info(model):
+    """Extract relevant information from model data"""
+    architecture = model.get('architecture', {})
+    input_modalities = architecture.get('input_modalities', [])
+    output_modalities = architecture.get('output_modalities', [])
+    
+    # Check capabilities
+    has_tools = 'tools' in model.get('supported_parameters', [])
+    has_vision = 'image' in input_modalities
+    has_reasoning = 'include_reasoning' in model.get('supported_parameters', [])
+    
+    # Extract provider from model id
+    model_id = model.get('id', '')
+    provider = model_id.split('/')[0] if '/' in model_id else 'Unknown'
+    provider = provider.replace('-', ' ').title()
+    
+    # Get expiration date
+    expiration = model.get('expiration_date', None)
+    
+    # Get usage volume (in billions of tokens)
+    usage_volume = USAGE_DATA.get(model_id, None)
+    usage_display = None
+    if usage_volume:
+        if usage_volume >= 1000:
+            usage_display = f"{usage_volume/1000:.1f}T"
+        elif usage_volume >= 1:
+            usage_display = f"{usage_volume:.1f}B"
+        else:
+            usage_display = f"{usage_volume*1000:.0f}M"
+    
+    return {
+        'id': model_id,
+        'name': model.get('name', 'Unknown Model'),
+        'provider': provider,
+        'context_length': model.get('context_length', 0),
+        'has_tools': has_tools,
+        'has_vision': has_vision,
+        'has_reasoning': has_reasoning,
+        'pricing_prompt': float(model.get('pricing', {}).get('prompt', '0')),
+        'pricing_completion': float(model.get('pricing', {}).get('completion', '0')),
+        'created': model.get('created', 0),
+        'description': model.get('description', ''),
+        'supported_parameters': model.get('supported_parameters', []),
+        'expiration_date': expiration,
+        'model_url': f"https://openrouter.ai/{model_id}",
+        'usage_volume': usage_display,
+        'usage_raw': usage_volume
+    }
+
+def main():
+    print("Fetching models from OpenRouter API...")
+    all_models = fetch_models()
+    
+    print(f"Total models fetched: {len(all_models)}")
+    
+    # Filter ONLY models with ':free' suffix
+    free_models = [m for m in all_models if m.get('id', '').endswith(':free')]
+    print(f"Models with ':free' suffix: {len(free_models)}")
+    
+    # Double-check they are actually free
+    verified_free = [m for m in free_models if is_free_model(m)]
+    print(f"Verified free models: {len(verified_free)}")
+    
+    # Extract info
+    models_info = [extract_model_info(m) for m in verified_free]
+    
+    # Sort by usage volume (descending), then by context length
+    models_info.sort(key=lambda x: (x['usage_raw'] or 0, x['context_length']), reverse=True)
+    
+    # Get unique providers
+    providers = sorted(set(m['provider'] for m in models_info))
+    
+    # Prepare output data
+    output = {
+        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC'),
+        'total_models': len(models_info),
+        'total_providers': len(providers),
+        'providers': providers,
+        'models': models_info
+    }
+    
+    # Write to file
+    with open('data/models.json', 'w') as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+    
+    print(f"Data written to data/models.json")
+    print(f"Models: {len(models_info)}, Providers: {len(providers)}")
+    
+    # Show usage volumes
+    print("\nModels with usage data:")
+    for m in models_info:
+        if m['usage_volume']:
+            print(f"  - {m['name']}: {m['usage_volume']} tokens")
+
+if __name__ == '__main__':
+    main()
