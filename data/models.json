@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-29 02:25:11 UTC",
+  "last_updated": "2026-04-30 02:25:59 UTC",
   "total_models": 29,
   "total_providers": 14,
   "providers": [
@@ -105,7 +105,7 @@
         "top_k",
         "top_p"
       ],
-      "expiration_date": "2026-04-30",
+      "expiration_date": "2026-05-07",
       "model_url": "https://openrouter.ai/inclusionai/ling-2.6-1t:free",
       "usage_volume": "369.0B",
       "usage_raw": 369
