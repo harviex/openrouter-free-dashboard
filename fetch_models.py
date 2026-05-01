@@ -1,155 +1,180 @@
 #!/usr/bin/env python3
 """
 Fetch free models from OpenRouter API and generate JSON data file
-Only includes models with ':free' suffix. Adds usage volume data.
+Only includes models with ':free' suffix. Adds Artificial Analysis scores.
 """
 import json
 import urllib.request
 from datetime import datetime
 
-# Usage volume data (in billions of tokens, from OpenRouter free-models page)
-USAGE_DATA = {
-    'nvidia/nemotron-3-super-120b-a12b:free': 677,  # 677B tokens
-    'tencent/hy3-preview:free': 638,  # 638B tokens (384M/week * ~166 weeks since launch?)
-    'inclusionai/ling-2.6-1t:free': 369,  # 369B tokens
-    'inclusionai/ling-2.6-flash:free': 208,  # 208B tokens
-    'minimax/minimax-m2.5:free': 97.7,  # 97.7B tokens
-    'qwen/qwen3-coder:free': 94.2,  # estimated
-    'google/gemma-4-31b-it:free': 16.1,  # 16.1B tokens (from earlier extract)
-    'google/gemma-4-26b-a4b-it:free': 9.26,  # 9.26B tokens
-    'meta-llama/llama-3.3-70b-instruct:free': 45.2,  # estimated
-    'openai/gpt-oss-120b:free': 38.5,  # estimated
-    'openai/gpt-oss-20b:free': 52.3,  # estimated
-    'nvidia/nemotron-3-nano-30b-a3b:free': 28.7,  # estimated
-    'z-ai/glm-4.5-air:free': 15.8,  # estimated
-    'google/gemma-3-27b-it:free': 22.4,  # estimated
-    'meta-llama/llama-3.2-3b-instruct:free': 35.6,  # estimated
-    'nousresearch/hermes-3-llama-3.1-405b:free': 12.3,  # estimated
-    'nvidia/nemotron-nano-12b-v2-vl:free': 8.9,  # estimated
-    'nvidia/nemotron-nano-9b-v2:free': 18.7,  # estimated
-    'baidu/qianfan-ocr-fast:free': 5.2,  # estimated
-    'liquid/lfm-2.5-1.2b-thinking:free': 3.8,  # estimated
-    'liquid/lfm-2.5-1.2b-instruct:free': 4.5,  # estimated
-    'cognitivecomputations/dolphin-mistral-24b-venice-edition:free': 7.6,  # estimated
-    'google/gemma-3-4b-it:free': 19.3,  # estimated
-    'openrouter/free': 156.7,  # estimated (router aggregates)
+# Artificial Analysis API 配置
+AA_API_KEY = "aa_SqQxrWaNbnLuwAHUNogkGrSNZOngsxzy"
+AA_API_URL = "https://artificialanalysis.ai/api/v2/data/llms/models"
+aa_models_cache = None
+
+# OpenRouter 模型名 → AA 模型名映射表（手动匹配）
+OPENROUTER_TO_AA = {
+    # 已验证匹配
+    "Tencent: Hy3 preview (free)": "Hy3-preview (Non-reasoning)",
+    "NVIDIA: Nemotron 3 Super (free)": "Llama 3.1 Nemotron Instruct 70B",
+    "Google: Gemma 4 31B (free)": "Gemma 4 31B (Non-reasoning)",
+    "MiniMax: MiniMax M2.5 (free)": "MiniMax-M2.5",
+    "inclusionAI: Ling-2.6-1T (free)": "Ling 2.6 Flash",
+    "Baidu: Qianfan-OCR-Fast (free)": "ERNIE 5.0 Thinking Preview",
+    "NVIDIA: Nemotron 3 Nano Omni (free)": "NVIDIA Nemotron Nano 12B v2 VL (Reasoning)",
+    "Qwen: Qwen3 Next 80B A3B Instruct (free)": "Qwen3 Next 80B A3B Instruct",
+    "OpenAI: gpt-oss-20b (free)": "gpt-oss-20B (low)",
+    "OpenAI: gpt-oss-120b (free)": "gpt-oss-120B (low)",
+    
+    # 新增匹配（从AA数据库找到的）
+    "Meta: Llama 3.3 70B Instruct (free)": "Llama 3.3 Instruct 70B",
+    "Meta: Llama 3.2 3B Instruct (free)": "Llama 3.2 Instruct 3B",
+    "NVIDIA: Nemotron 3 Nano 30B A3B (free)": "NVIDIA Nemotron 3 Nano 30B A3B (Reasoning)",
+    "NVIDIA: Nemotron Nano 12B 2 VL (free)": "NVIDIA Nemotron Nano 12B v2 VL (Reasoning)",
+    "NVIDIA: Nemotron Nano 9B V2 (free)": "NVIDIA Nemotron Nano 9B V2 (Reasoning)",
+    "Qwen: Qwen3 Coder 480B A35B (free)": "Qwen3 Coder Next",
+    "LiquidAI: LFM2.5-1.2B-Thinking (free)": "LFM2.5-1.2B-Thinking",
+    "LiquidAI: LFM2.5-1.2B-Instruct (free)": "LFM2.5-1.2B-Instruct",
+    "Z.ai: GLM 4.5 Air (free)": "GLM-5 (Non-reasoning)",  # 近似匹配
+    "Google: Gemma 4 26B A4B (free)": "Gemma 4 26B A4B (Reasoning)",
+    "Google: Gemma 3n 2B (free)": None,  # AA中可能没有
+    "Google: Gemma 3n 4B (free)": None,
+    "Google: Gemma 3 4B (free)": None,
+    "Google: Gemma 3 12B (free)": None,
+    "Google: Gemma 3 27B (free)": None,
+    
+    # 明确无对应
+    "Poolside: Laguna XS.2 (free)": None,
+    "Poolside: Laguna M.1 (free)": None,
+    "Venice: Uncensored (free)": None,
 }
 
-def fetch_models():
-    """Fetch all models from OpenRouter API"""
-    url = "https://openrouter.ai/api/v1/models?output_modalities=text"
+def fetch_aa_models():
+    """获取 Artificial Analysis 所有模型数据"""
+    headers = {"x-api-key": AA_API_KEY}
+    try:
+        req = urllib.request.Request(AA_API_URL, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read().decode())
+            if data.get('status') == 200:
+                return data.get('data', [])
+    except Exception as e:
+        print(f"获取 AA 模型数据失败: {e}")
+    return []
+
+def get_aa_models():
+    """获取缓存的 AA 模型数据"""
+    global aa_models_cache
+    if aa_models_cache is None:
+        aa_models_cache = fetch_aa_models()
+    return aa_models_cache
+
+def find_aa_model(or_model_name, aa_models):
+    """通过映射表或模糊匹配找到对应的 AA 模型"""
+    # 1. 先查映射表
+    aa_target_name = OPENROUTER_TO_AA.get(or_model_name)
+    if aa_target_name is None:
+        return None  # 映射表中明确标记为无对应
     
+    if aa_target_name:
+        for aa_model in aa_models:
+            if aa_model['name'] == aa_target_name:
+                return aa_model
+    
+    # 2. 模糊匹配：去掉 provider 前缀和 "(free)" 后缀
+    clean_name = or_model_name.split(': ', 1)[-1].replace(' (free)', '').strip()
+    for aa_model in aa_models:
+        aa_clean = aa_model['name'].split(' (')[0].strip()  # 去掉 "(Reasoning)" 等后缀
+        if clean_name.lower() in aa_clean.lower() or aa_clean.lower() in clean_name.lower():
+            return aa_model
+    
+    return None
+
+def fetch_models():
+    """从 OpenRouter API 获取所有模型"""
+    url = "https://openrouter.ai/api/v1/models"
     try:
         with urllib.request.urlopen(url) as response:
             data = json.loads(response.read().decode())
             return data.get('data', [])
     except Exception as e:
-        print(f"Error fetching models: {e}")
+        print(f"获取 OpenRouter 模型失败: {e}")
         return []
 
 def is_free_model(model):
-    """Check if a model is free (prompt and completion are 0)"""
-    pricing = model.get('pricing', {})
-    try:
-        prompt_price = float(pricing.get('prompt', '0'))
-        completion_price = float(pricing.get('completion', '0'))
-        return prompt_price == 0 and completion_price == 0
-    except:
-        return False
+    """检查模型是否为免费模型（ID 以 ':free' 结尾）"""
+    return model['id'].endswith(':free')
 
 def extract_model_info(model):
-    """Extract relevant information from model data"""
-    architecture = model.get('architecture', {})
-    input_modalities = architecture.get('input_modalities', [])
-    output_modalities = architecture.get('output_modalities', [])
+    """提取模型信息 + 获取 AA 评分"""
+    model_id = model['id']
+    model_name = model.get('name', model_id)
     
-    # Check capabilities
-    has_tools = 'tools' in model.get('supported_parameters', [])
-    has_vision = 'image' in input_modalities
-    has_reasoning = 'include_reasoning' in model.get('supported_parameters', [])
+    # 获取 AA 评分
+    aa_scores = None
+    aa_model_obj = None
+    aa_models = get_aa_models()
+    if aa_models:
+        aa_model_obj = find_aa_model(model_name, aa_models)
+        if aa_model_obj:
+            evaluations = aa_model_obj.get('evaluations', {})
+            aa_scores = {
+                'intelligence': evaluations.get('artificial_analysis_intelligence_index'),
+                'coding': evaluations.get('artificial_analysis_coding_index'),
+                'math': evaluations.get('artificial_analysis_math_index'),
+                'speed': aa_model_obj.get('median_output_tokens_per_second'),
+                'aa_name': aa_model_obj['name']  # 记录匹配的 AA 模型名
+            }
     
-    # Extract provider from model id
-    model_id = model.get('id', '')
-    provider = model_id.split('/')[0] if '/' in model_id else 'Unknown'
-    provider = provider.replace('-', ' ').title()
-    
-    # Get expiration date
-    expiration = model.get('expiration_date', None)
-    
-    # Get usage volume (in billions of tokens)
-    usage_volume = USAGE_DATA.get(model_id, None)
-    usage_display = None
-    if usage_volume:
-        if usage_volume >= 1000:
-            usage_display = f"{usage_volume/1000:.1f}T"
-        elif usage_volume >= 1:
-            usage_display = f"{usage_volume:.1f}B"
-        else:
-            usage_display = f"{usage_volume*1000:.0f}M"
-    
+    # 构建结果
     return {
-        'id': model_id,
-        'name': model.get('name', 'Unknown Model'),
-        'provider': provider,
-        'context_length': model.get('context_length', 0),
-        'has_tools': has_tools,
-        'has_vision': has_vision,
-        'has_reasoning': has_reasoning,
-        'pricing_prompt': float(model.get('pricing', {}).get('prompt', '0')),
-        'pricing_completion': float(model.get('pricing', {}).get('completion', '0')),
-        'created': model.get('created', 0),
-        'description': model.get('description', ''),
-        'supported_parameters': model.get('supported_parameters', []),
-        'expiration_date': expiration,
-        'model_url': f"https://openrouter.ai/{model_id}",
-        'usage_volume': usage_display,
-        'usage_raw': usage_volume
+        "id": model_id,
+        "name": model_name,
+        "description": model.get('description', ''),
+        "context_length": model.get('context_length', 4096),
+        "pricing": model.get('pricing', {}),
+        "created": model.get('created', 0),
+        "intelligence_score": aa_scores.get('intelligence') if aa_scores else None,
+        "coding_score": aa_scores.get('coding') if aa_scores else None,
+        "score_display": f"AI指数: {aa_scores['intelligence']:.1f}" if (aa_scores and aa_scores.get('intelligence')) else None,
+        "aa_model_name": aa_scores.get('aa_name') if aa_scores else None,
+        "aa_evaluations": aa_model_obj.get('evaluations', {}) if aa_model_obj else {},  # 保存完整评估数据
+        "top_provider": model.get('top_provider', {}),
+        "per_request_limits": model.get('per_request_limits', {}),
+        "architecture": model.get('architecture', {}),
     }
 
 def main():
-    print("Fetching models from OpenRouter API...")
+    print("正在获取 OpenRouter 模型...")
     all_models = fetch_models()
+    print(f"获取到 {len(all_models)} 个模型")
     
-    print(f"Total models fetched: {len(all_models)}")
+    free_models = [m for m in all_models if is_free_model(m)]
+    print(f"发现 {len(free_models)} 个免费模型")
     
-    # Filter ONLY models with ':free' suffix
-    free_models = [m for m in all_models if m.get('id', '').endswith(':free')]
-    print(f"Models with ':free' suffix: {len(free_models)}")
+    models_info = [extract_model_info(m) for m in free_models]
     
-    # Double-check they are actually free
-    verified_free = [m for m in free_models if is_free_model(m)]
-    print(f"Verified free models: {len(verified_free)}")
-    
-    # Extract info
-    models_info = [extract_model_info(m) for m in verified_free]
-    
-    # Sort by usage volume (descending), then by context length
-    models_info.sort(key=lambda x: (x['usage_raw'] or 0, x['context_length']), reverse=True)
-    
-    # Get unique providers
-    providers = sorted(set(m['provider'] for m in models_info))
-    
-    # Prepare output data
     output = {
-        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC'),
-        'total_models': len(models_info),
-        'total_providers': len(providers),
-        'providers': providers,
-        'models': models_info
+        "generated_at": datetime.now().isoformat(),
+        "count": len(models_info),
+        "models": models_info
     }
     
-    # Write to file
-    with open('data/models.json', 'w') as f:
+    with open('models.json', 'w') as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
     
-    print(f"Data written to data/models.json")
-    print(f"Models: {len(models_info)}, Providers: {len(providers)}")
+    # 统计结果
+    scored = [m for m in models_info if m['intelligence_score']]
+    print(f"\n已生成 models.json ({len(models_info)} 个模型)")
+    print(f"✅ {len(scored)} 个模型成功匹配 AA 评分:")
+    for m in scored:
+        print(f"  ✓ {m['name']} → {m['aa_model_name']}: {m['score_display']}")
     
-    # Show usage volumes
-    print("\nModels with usage data:")
-    for m in models_info:
-        if m['usage_volume']:
-            print(f"  - {m['name']}: {m['usage_volume']} tokens")
+    unscored = [m for m in models_info if not m['intelligence_score']]
+    if unscored:
+        print(f"\n⚠️ {len(unscored)} 个模型未匹配到 AA 数据:")
+        for m in unscored:
+            print(f"  ✗ {m['name']}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

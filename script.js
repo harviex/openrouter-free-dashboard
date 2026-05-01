@@ -13,7 +13,7 @@ const translations = {
         title: 'OpenRouter Free Models',
         subtitle: 'Daily updated dashboard for free AI models',
         sort_by: 'Sort by:',
-        sort_usage: 'Usage (Highest First)',
+        sort_usage: 'AI指数 (High to Low)',
         sort_context_high: 'Context Length (High to Low)',
         sort_context_low: 'Context Length (Low to High)',
         sort_name: 'Name (A-Z)',
@@ -46,7 +46,7 @@ const translations = {
         title: 'OpenRouter 免费模型面板',
         subtitle: '每日更新的免费AI模型仪表板',
         sort_by: '排序方式：',
-        sort_usage: '使用量（从高到低）',
+        sort_usage: 'AI指数（从高到低）',
         sort_context_high: '上下文长度（从高到低）',
         sort_context_low: '上下文长度（从低到高）',
         sort_name: '名称（A到Z）',
@@ -79,7 +79,7 @@ const translations = {
         title: 'OpenRouter 無料モデルダッシュボード',
         subtitle: '無料AIモデルの日次更新ダッシュボード',
         sort_by: '並び替え：',
-        sort_usage: '使用量（多い順）',
+        sort_usage: 'AI指数（高い順）',
         sort_context_high: 'コンテキスト長（長い順）',
         sort_context_low: 'コンテキスト長（短い順）',
         sort_name: '名前（A-Z）',
@@ -287,7 +287,7 @@ function applyFilters() {
     // Sort
     switch(sortBy) {
         case 'usage':
-            filteredModels.sort((a, b) => (b.usage_raw || 0) - (a.usage_raw || 0));
+            filteredModels.sort((a, b) => (b.intelligence_score || 0) - (a.intelligence_score || 0));
             break;
         case 'context_length':
             filteredModels.sort((a, b) => b.context_length - a.context_length);
@@ -343,51 +343,112 @@ function createModelCard(model) {
         footerContent += '<span class="expiration-inline">' + t.expires + expiryInfo + '</span>';
     }
     
+    // Front card content
+    const frontContent = `
+        <div class="card-header">
+            <span class="provider-badge">${model.provider}</span>
+            <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
+            <div class="model-id">${model.id}</div>
+        </div>
+        <div class="card-body">
+            <div class="card-stats">
+                <span class="stat">📏 ${contextLength}</span>
+                ${model.score_display ? `<span class="stat">📊 ${model.score_display}</span>` : '<span class="stat">暂无评分</span>'}
+            </div>
+            <div class="capabilities">${capabilities.join('')}</div>
+            <div class="card-stats">
+                <span class="stat">📅 ${createdDate}</span>
+            </div>
+        </div>
+        <div class="card-footer">
+            ${footerContent}
+        </div>
+    `;
+    
+    // Back card content (AA evaluations)
+    const backContent = createBackContent(model);
+    
+    // Check if model has AA data for flip functionality
+    const hasAAData = model.aa_evaluations && Object.keys(model.aa_evaluations).length > 0;
+    const cardClass = hasAAData ? 'model-card flip-container' : 'model-card';
+    const flipEvents = hasAAData ? 'onmouseenter="flipCard(this)" onmouseleave="unflipCard(this)"' : '';
+    
     if (currentView === 'list') {
+        // List view - no flip, just show front
         return `
             <div class="model-card list-view" onclick="copyModelId('${model.id}')" title="${copyHint}">
-                <div class="card-header">
-                    <span class="provider-badge">${model.provider}</span>
-                    <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
-                    <div class="model-id">${model.id}</div>
-                </div>
-                <div class="card-body">
-                    <div class="card-stats">
-                        <span class="stat">📏 ${contextLength}</span>
-                        ${model.usage_volume ? `<span class="stat">📊 ${model.usage_volume}</span>` : ''}
-                        <span class="stat">📅 ${createdDate}</span>
-                    </div>
-                    <div class="capabilities">${capabilities.join('')}</div>
-                </div>
-                <div class="card-footer">
-                    ${footerContent}
-                </div>
+                ${frontContent}
             </div>
         `;
     }
     
+    // Grid view - with flip if AA data available
     return `
-        <div class="model-card" onclick="copyModelId('${model.id}')" title="${copyHint}">
-            <div class="card-header">
-                <span class="provider-badge">${model.provider}</span>
-                <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
-                <div class="model-id">${model.id}</div>
-            </div>
-            <div class="card-body">
-                <div class="card-stats">
-                    <span class="stat">📏 ${contextLength}</span>
-                    ${model.usage_volume ? `<span class="stat">📊 ${model.usage_volume}</span>` : ''}
+        <div class="${cardClass}" ${flipEvents} onclick="copyModelId('${model.id}')" title="${copyHint}">
+            <div class="flipper">
+                <div class="front">
+                    ${frontContent}
                 </div>
-                <div class="capabilities">${capabilities.join('')}</div>
-                <div class="card-stats">
-                    <span class="stat">📅 ${createdDate}</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                ${footerContent}
+                ${hasAAData ? `<div class="back">${backContent}</div>` : ''}
             </div>
         </div>
     `;
+}
+
+// Create back content with AA evaluations
+function createBackContent(model) {
+    const t = translations[currentLang];
+    const evals = model.aa_evaluations || {};
+    
+    // Helper to format score
+    function formatScore(value) {
+        if (value === null || value === undefined) return 'N/A';
+        return typeof value === 'number' ? value.toFixed(1) : value;
+    }
+    
+    // Helper to get score class
+    function getScoreClass(value) {
+        if (value === null || value === undefined) return '';
+        if (value >= 30) return 'high';
+        if (value >= 15) return 'medium';
+        return 'low';
+    }
+    
+    // Build score items
+    const scores = [
+        { label: 'AI指数', value: evals.artificial_analysis_intelligence_index, key: 'intelligence' },
+        { label: '编码指数', value: evals.artificial_analysis_coding_index, key: 'coding' },
+        { label: '数学指数', value: evals.artificial_analysis_math_index, key: 'math' },
+        { label: 'MMLU-Pro', value: evals.mmlu_pro, key: 'mmlu' },
+        { label: 'GPQA', value: evals.gpqa, key: 'gpqa' },
+        { label: 'HLE', value: evals.hle, key: 'hle' },
+        { label: 'LiveCodeBench', value: evals.livecodebench, key: 'livecodebench' },
+        { label: 'Speed (tok/s)', value: model.aa_evaluations ? model.aa_evaluations.speed : null, key: 'speed' }
+    ];
+    
+    let html = '<h4>📊 AA 评分详情</h4>';
+    scores.forEach(score => {
+        if (score.value !== null && score.value !== undefined) {
+            const cssClass = getScoreClass(score.value);
+            html += `
+                <div class="score-item">
+                    <span class="score-label">${score.label}</span>
+                    <span class="score-value ${cssClass}">${formatScore(score.value)}</span>
+                </div>
+            `;
+        }
+    });
+    
+    return html;
+}
+
+// Flip card functions
+function flipCard(card) {
+    card.classList.add('flipped');
+}
+
+function unflipCard(card) {
+    card.classList.remove('flipped');
 }
 
 // Copy model ID to clipboard (with fallback)
