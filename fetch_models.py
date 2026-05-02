@@ -7,6 +7,35 @@ import json
 import urllib.request
 from datetime import datetime
 
+# Manual parameter mapping for models where API doesn't provide parameters
+PARAMETER_MAP = {
+    'tencent/hy3-preview:free': '295B',
+    'tencent/hy3-preview': '295B',
+    'qwen/qwen3-coder:free': '480B',
+    'openai/gpt-oss-120b:free': '120B',
+    'openai/gpt-oss-20b:free': '20B',
+    'nvidia/nemotron-3-super-120b-a12b:free': '120B',
+    'nvidia/nemotron-3-nano-30b-a3b:free': '30B',
+    'meta-llama/llama-3.3-70b-instruct:free': '70B',
+    'meta-llama/llama-3.2-3b-instruct:free': '3B',
+    'google/gemma-3-27b-it:free': '27B',
+    'google/gemma-3-4b-it:free': '4B',
+    'google/gemma-4-31b-it:free': '31B',
+    'google/gemma-4-26b-a4b-it:free': '26B',
+    'nvidia/nemotron-nano-9b-v2:free': '9B',
+    'nvidia/nemotron-nano-12b-v2-vl:free': '12B',
+    'z-ai/glm-4.5-air:free': '45B',
+    'nousresearch/hermes-3-llama-3.1-405b:free': '405B',
+    'minimax/minimax-m2.5:free': '35B',
+    'inclusionai/ling-2.6-1t:free': '1T',
+    'inclusionai/ling-2.6-flash:free': '1T',
+    'liquid/lfm-2.5-1.2b-thinking:free': '1.2B',
+    'liquid/lfm-2.5-1.2b-instruct:free': '1.2B',
+    'cognitivecomputations/dolphin-mistral-24b-venice-edition:free': '24B',
+    'baidu/qianfan-ocr-fast:free': 'Unknown',
+    'openrouter/free': 'Unknown',
+}
+
 # Usage volume data (in billions of tokens, from OpenRouter free-models page)
 USAGE_DATA = {
     'nvidia/nemotron-3-super-120b-a12b:free': 677,  # 677B tokens
@@ -167,6 +196,11 @@ def get_paid_pricing(free_model_id):
 
 def extract_parameters(model_name, model_id):
     """Extract parameter count from model name or id"""
+    
+    # First, check manual mapping (most reliable)
+    if model_id in PARAMETER_MAP:
+        return PARAMETER_MAP[model_id]
+    
     import re
     
     text = (model_name + ' ' + model_id).lower()
