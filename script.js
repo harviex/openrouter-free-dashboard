@@ -6,6 +6,7 @@ let filteredModels = [];
 let currentView = 'grid';
 let currentLang = 'en';
 let savedData = null;  // Store data for re-rendering on language change
+let searchTerm = '';  // Global search term for highlighting
 
 // i18n translations
 const translations = {
@@ -13,7 +14,9 @@ const translations = {
         title: 'OpenRouter Free Models',
         subtitle: 'Daily updated dashboard for free AI models',
         sort_by: 'Sort by:',
-        sort_usage: 'AI指数 (High to Low)',
+        sort_parameters_high: 'Parameters (High to Low)',
+        sort_parameters_low: 'Parameters (Low to High)',
+        sort_score: 'Score (Highest First)',
         sort_context_high: 'Context Length (High to Low)',
         sort_context_low: 'Context Length (Low to High)',
         sort_name: 'Name (A-Z)',
@@ -29,7 +32,7 @@ const translations = {
         list_view: 'List',
         refresh: 'Refresh',
         loading: 'Loading models...',
-        footer_data: 'Data sourced from <a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> API',
+        footer_data: 'Data sourced from <a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> & <a href="https://huggingface.co" target="_blank">HuggingFace.co</a>',
         footer_updated: 'Last updated: ',
         footer_inspired: 'Inspired by <a href="https://www.canirun.ai" target="_blank">CanIRun.ai</a>',
         copied_toast: 'Copied to clipboard!',
@@ -40,13 +43,25 @@ const translations = {
         no_expiry: 'No expiry',
         rating: 'Rating: ',
         models: 'Models',
-        providers: 'Providers'
+        providers: 'Providers',
+        rating_info: 'Rating Info',
+        rating_formula: 'Score Formula:',
+        rating_40_p: '40% - Community Popularity (Likes + Downloads from HuggingFace)',
+        rating_20_f: '20% - Freshness (Days since model creation)',
+        rating_40_b: '40% - Benchmark Performance (Presence of eval-results tag)',
+        rating_range: 'Score Range: 0.0 - 5.0',
+        rating_updated: 'Updated daily via GitHub Actions',
+        details: 'Details',
+        compare: 'Compare',
+        max_compare: 'Maximum 3 models can be compared'
     },
     zh: {
         title: 'OpenRouter 免费模型面板',
         subtitle: '每日更新的免费AI模型仪表板',
         sort_by: '排序方式：',
-        sort_usage: 'AI指数（从高到低）',
+        sort_parameters_high: '参数量（从高到低）',
+        sort_parameters_low: '参数量（从低到高）',
+        sort_score: '评分（从高到低）',
         sort_context_high: '上下文长度（从高到低）',
         sort_context_low: '上下文长度（从低到高）',
         sort_name: '名称（A到Z）',
@@ -62,7 +77,7 @@ const translations = {
         list_view: '列表',
         refresh: '刷新',
         loading: '正在加载模型...',
-        footer_data: '数据来源：<a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> API',
+        footer_data: '数据来源：<a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> & <a href="https://huggingface.co" target="_blank">HuggingFace.co</a>',
         footer_updated: '最后更新：',
         footer_inspired: '灵感来自 <a href="https://www.canirun.ai" target="_blank">CanIRun.ai</a>',
         copied_toast: '已复制到剪贴板！',
@@ -73,13 +88,25 @@ const translations = {
         no_expiry: '无限期',
         rating: '评分：',
         models: '模型',
-        providers: '提供商'
+        providers: '提供商',
+        rating_info: '评分说明',
+        rating_formula: '评分公式：',
+        rating_40_p: '40% - 社区热度（HuggingFace 点赞 + 下载量）',
+        rating_20_f: '20% - 新鲜度（模型创建天数）',
+        rating_40_b: '40% - 基准性能（是否存在 eval-results 标签）',
+        rating_range: '评分范围：0.0 - 5.0',
+        rating_updated: '每日通过 GitHub Actions 更新',
+        details: '详情',
+        compare: '对比',
+        max_compare: '最多可对比3个模型'
     },
     ja: {
         title: 'OpenRouter 無料モデルダッシュボード',
         subtitle: '無料AIモデルの日次更新ダッシュボード',
         sort_by: '並び替え：',
-        sort_usage: 'AI指数（高い順）',
+        sort_parameters_high: 'パラメータ数（多い順）',
+        sort_parameters_low: 'パラメータ数（少ない順）',
+        sort_score: 'スコア（高い順）',
         sort_context_high: 'コンテキスト長（長い順）',
         sort_context_low: 'コンテキスト長（短い順）',
         sort_name: '名前（A-Z）',
@@ -95,7 +122,7 @@ const translations = {
         list_view: 'リスト',
         refresh: '更新',
         loading: 'モデルを読み込み中...',
-        footer_data: 'データソース：<a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> API',
+        footer_data: 'データソース：<a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> & <a href="https://huggingface.co" target="_blank">HuggingFace.co</a>',
         footer_updated: '最終更新：',
         footer_inspired: '<a href="https://www.canirun.ai" target="_blank">CanIRun.ai</a>にインスパイアされました',
         copied_toast: 'クリップボードにコピーしました！',
@@ -106,7 +133,17 @@ const translations = {
         no_expiry: '無期限',
         rating: '評価：',
         models: 'モデル',
-        providers: 'プロバイダー'
+        providers: 'プロバイダー',
+        rating_info: '評価について',
+        rating_formula: 'スコア計算式：',
+        rating_40_p: '40% - コミュニティ人気（いいね + ダウンロード数）',
+        rating_20_f: '20% - 新しさ（モデル作成からの日数）',
+        rating_40_b: '40% - ベンチマーク性能（eval-resultsタグの有無）',
+        rating_range: 'スコア範囲：0.0 - 5.0',
+        rating_updated: '毎日GitHub Actionsで更新',
+        details: '詳細',
+        compare: '比較',
+        max_compare: '最大3つのモデルを比較できます'
     }
 };
 
@@ -251,7 +288,7 @@ function populateProviders() {
 function applyFilters() {
     const providerFilter = document.getElementById('providerFilter').value;
     const sortBy = document.getElementById('sortBy').value;
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const filterTools = document.getElementById('filterTools').checked;
     const filterVision = document.getElementById('filterVision').checked;
     const filterReasoning = document.getElementById('filterReasoning').checked;
@@ -286,8 +323,14 @@ function applyFilters() {
     
     // Sort
     switch(sortBy) {
-        case 'usage':
-            filteredModels.sort((a, b) => (b.intelligence_score || 0) - (a.intelligence_score || 0));
+        case 'parameters_high':
+            filteredModels.sort((a, b) => parseParameters(b.parameters) - parseParameters(a.parameters));
+            break;
+        case 'parameters_low':
+            filteredModels.sort((a, b) => parseParameters(a.parameters) - parseParameters(b.parameters));
+            break;
+        case 'score':
+            filteredModels.sort((a, b) => (b.score || 0) - (a.score || 0));
             break;
         case 'context_length':
             filteredModels.sort((a, b) => b.context_length - a.context_length);
@@ -330,12 +373,17 @@ function createModelCard(model) {
     const capabilities = [];
     if (model.has_tools) capabilities.push('<span class="capability-tag">🔧 ' + t.tools + '</span>');
     if (model.has_vision) capabilities.push('<span class="capability-tag">👁️ ' + t.vision + '</span>');
-    if (model.has_reasoning) capabilities.push('<span class="capability-tag">🧠 ' + t.reasoning + '</span>');
+    if (model.has_reasoning) capabilities.push('<span class="capability-tag">💭 ' + t.reasoning + '</span>');
     
     const contextLength = formatContextLength(model.context_length);
     const createdDate = formatDate(model.created);
     const expiryInfo = formatExpiry(model.expiration_date);
     const copyHint = t.click_to_copy + ' ' + model.id;
+    
+    // Highlight search terms
+    const highlightedName = highlightText(model.name, searchTerm);
+    const highlightedId = highlightText(model.id, searchTerm);
+    const highlightedProvider = highlightText(model.provider, searchTerm);
     
     // Build footer content: FREE badge + optional expiry (inline)
     let footerContent = '<span class="free-badge">' + t.free_model + '</span>';
@@ -343,112 +391,63 @@ function createModelCard(model) {
         footerContent += '<span class="expiration-inline">' + t.expires + expiryInfo + '</span>';
     }
     
-    // Front card content
-    const frontContent = `
-        <div class="card-header">
-            <span class="provider-badge">${model.provider}</span>
-            <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
-            <div class="model-id">${model.id}</div>
-        </div>
-        <div class="card-body">
-            <div class="card-stats">
-                <span class="stat">📏 ${contextLength}</span>
-                ${model.score_display ? `<span class="stat">📊 ${model.score_display}</span>` : '<span class="stat">暂无评分</span>'}
-            </div>
-            <div class="capabilities">${capabilities.join('')}</div>
-            <div class="card-stats">
-                <span class="stat">📅 ${createdDate}</span>
-            </div>
-        </div>
-        <div class="card-footer">
-            ${footerContent}
-        </div>
-    `;
-    
-    // Back card content (AA evaluations)
-    const backContent = createBackContent(model);
-    
-    // Check if model has AA data for flip functionality
-    const hasAAData = model.aa_evaluations && Object.keys(model.aa_evaluations).length > 0;
-    const cardClass = hasAAData ? 'model-card flip-container' : 'model-card';
-    const flipEvents = hasAAData ? 'onmouseenter="flipCard(this)" onmouseleave="unflipCard(this)"' : '';
-    
     if (currentView === 'list') {
-        // List view - no flip, just show front
         return `
             <div class="model-card list-view" onclick="copyModelId('${model.id}')" title="${copyHint}">
-                ${frontContent}
+                <input type="checkbox" class="compare-checkbox" onchange="event.stopPropagation(); toggleCompare('${model.id}')">
+                <div class="card-header">
+                    <span class="provider-badge">${highlightedProvider}</span>
+                    <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${highlightedName}</a></div>
+                    <div class="model-id">${highlightedId}</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-stats">
+                        <span class="stat">📏 ${contextLength}</span>
+                        <span class="stat">📊 ${model.parameters || 'N/A'}</span>
+                        ${model.score !== null && model.score !== undefined ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
+                        <span class="stat">📅 ${createdDate}</span>
+                    </div>
+                    <div class="capabilities">${capabilities.join('')}</div>
+                </div>
+                <div class="card-footer">
+                    ${footerContent}
+                    <button class="expand-btn" onclick="event.stopPropagation(); toggleDetails('${model.id.replace(/[^a-zA-Z0-9]/g, '_')}')">${t.details || 'Details'} ▼</button>
+                </div>
+                <div class="model-details" id="details_${model.id.replace(/[^a-zA-Z0-9]/g, '_')}">
+                    <div class="details-content">
+                        <p><strong>${t.description || 'Description'}:</strong> ${model.description || 'N/A'}</p>
+                        <p><strong>${t.supported_params || 'Supported Parameters'}:</strong> ${model.supported_parameters ? model.supported_parameters.join(', ') : 'None'}</p>
+                        <p><strong>${t.created || 'Created'}:</strong> ${createdDate}</p>
+                    </div>
+                </div>
             </div>
         `;
     }
     
-    // Grid view - with flip if AA data available
     return `
-        <div class="${cardClass}" ${flipEvents} onclick="copyModelId('${model.id}')" title="${copyHint}">
-            <div class="flipper">
-                <div class="front">
-                    ${frontContent}
+        <div class="model-card" onclick="copyModelId('${model.id}')" title="${copyHint}">
+            <input type="checkbox" class="compare-checkbox" onchange="event.stopPropagation(); toggleCompare('${model.id}')">
+            <div class="card-header">
+                <span class="provider-badge">${highlightedProvider}</span>
+                <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${highlightedName}</a></div>
+                <div class="model-id">${highlightedId}</div>
+            </div>
+            <div class="card-body">
+                <div class="card-stats">
+                    <span class="stat">📏 ${contextLength}</span>
+                    <span class="stat">📊 ${model.parameters || 'N/A'}</span>
                 </div>
-                ${hasAAData ? `<div class="back">${backContent}</div>` : ''}
+                <div class="capabilities">${capabilities.join('')}</div>
+                <div class="card-stats">
+                    ${model.score !== null && model.score !== undefined ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
+                    <span class="stat">📅 ${createdDate}</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                ${footerContent}
             </div>
         </div>
     `;
-}
-
-// Create back content with AA evaluations
-function createBackContent(model) {
-    const t = translations[currentLang];
-    const evals = model.aa_evaluations || {};
-    
-    // Helper to format score
-    function formatScore(value) {
-        if (value === null || value === undefined) return 'N/A';
-        return typeof value === 'number' ? value.toFixed(1) : value;
-    }
-    
-    // Helper to get score class
-    function getScoreClass(value) {
-        if (value === null || value === undefined) return '';
-        if (value >= 30) return 'high';
-        if (value >= 15) return 'medium';
-        return 'low';
-    }
-    
-    // Build score items
-    const scores = [
-        { label: 'AI指数', value: evals.artificial_analysis_intelligence_index, key: 'intelligence' },
-        { label: '编码指数', value: evals.artificial_analysis_coding_index, key: 'coding' },
-        { label: '数学指数', value: evals.artificial_analysis_math_index, key: 'math' },
-        { label: 'MMLU-Pro', value: evals.mmlu_pro, key: 'mmlu' },
-        { label: 'GPQA', value: evals.gpqa, key: 'gpqa' },
-        { label: 'HLE', value: evals.hle, key: 'hle' },
-        { label: 'LiveCodeBench', value: evals.livecodebench, key: 'livecodebench' },
-        { label: 'Speed (tok/s)', value: model.aa_evaluations ? model.aa_evaluations.speed : null, key: 'speed' }
-    ];
-    
-    let html = '<h4>📊 AA 评分详情</h4>';
-    scores.forEach(score => {
-        if (score.value !== null && score.value !== undefined) {
-            const cssClass = getScoreClass(score.value);
-            html += `
-                <div class="score-item">
-                    <span class="score-label">${score.label}</span>
-                    <span class="score-value ${cssClass}">${formatScore(score.value)}</span>
-                </div>
-            `;
-        }
-    });
-    
-    return html;
-}
-
-// Flip card functions
-function flipCard(card) {
-    card.classList.add('flipped');
-}
-
-function unflipCard(card) {
-    card.classList.remove('flipped');
 }
 
 // Copy model ID to clipboard (with fallback)
@@ -514,6 +513,24 @@ function refreshData() {
     loadModels();
 }
 
+// Utility: Parse parameters string to number for sorting
+function parseParameters(paramStr) {
+    if (!paramStr || paramStr === 'Unknown') return 0;
+    
+    // Extract number and unit
+    const match = paramStr.match(/(\d+\.?\d*)\s*([BT])?/i);
+    if (!match) return 0;
+    
+    const value = parseFloat(match[1]);
+    const unit = (match[2] || 'B').toUpperCase();
+    
+    // Convert to B (Billions)
+    if (unit === 'T') {
+        return value * 1000; // 1T = 1000B
+    }
+    return value; // Already in B
+}
+
 // Utility: Format context length
 function formatContextLength(length) {
     if (length >= 1000000) {
@@ -568,3 +585,181 @@ async function getGitHubStars() {
         console.error('Failed to fetch GitHub stars:', error);
     }
 }
+
+// Rating Modal functions
+function openRatingModal() {
+    const modal = document.getElementById('ratingModal');
+    const title = document.getElementById('ratingModalTitle');
+    const body = document.getElementById('ratingModalBody');
+    const t = translations[currentLang];
+    
+    title.textContent = t.rating_info;
+    body.innerHTML = `
+        <p><strong>${t.rating_formula}</strong></p>
+        <ul>
+            <li><strong>40%</strong> - ${t.rating_40_p}</li>
+            <li><strong>20%</strong> - ${t.rating_20_f}</li>
+            <li><strong>40%</strong> - ${t.rating_40_b}</li>
+        </ul>
+        <p><strong>${t.rating_range}</strong></p>
+        <p><em>${t.rating_updated}</em></p>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+function closeRatingModal() {
+    document.getElementById('ratingModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('ratingModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Toggle model details
+function toggleDetails(modelId) {
+    const detailsId = 'details_' + modelId.replace(/[^a-zA-Z0-9]/g, '_');
+    const detailsEl = document.getElementById(detailsId);
+    const btn = event.target;
+    
+    if (detailsEl.classList.contains('expanded')) {
+        detailsEl.classList.remove('expanded');
+        btn.textContent = (translations[currentLang].details || 'Details') + ' ▼';
+    } else {
+        // Close other open details first
+        document.querySelectorAll('.model-details.expanded').forEach(el => {
+            el.classList.remove('expanded');
+        });
+        document.querySelectorAll('.expand-btn').forEach(btn => {
+            btn.textContent = (translations[currentLang].details || 'Details') + ' ▼';
+        });
+        
+        detailsEl.classList.add('expanded');
+        btn.textContent = (translations[currentLang].details || 'Details') + ' ▲';
+    }
+}
+
+// Search highlight function
+function highlightText(text, searchTerm) {
+    if (!text || !searchTerm) return text;
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Compare functionality
+let compareList = [];
+
+function toggleCompare(modelId) {
+    const index = compareList.indexOf(modelId);
+    if (index > -1) {
+        compareList.splice(index, 1);
+    } else {
+        if (compareList.length >= 3) {
+            alert('Maximum 3 models can be compared');
+            // Uncheck the checkbox
+            event.target.checked = false;
+            return;
+        }
+        compareList.push(modelId);
+    }
+    updateCompareButton();
+}
+
+function updateCompareButton() {
+    const t = translations[currentLang];
+    let btn = document.getElementById('compareBtn');
+    if (!btn) {
+        // Create button if not exists
+        btn = document.createElement('button');
+        btn.id = 'compareBtn';
+        btn.className = 'compare-btn';
+        btn.onclick = showCompareModal;
+        document.body.appendChild(btn);
+    }
+    if (compareList.length >= 2) {
+        btn.classList.add('show');
+        btn.textContent = `${t.compare || 'Compare'} ${compareList.length} ${(t.compare || 'Compare') === 'Compare' ? 'Models' : ''}`;
+    } else {
+        btn.classList.remove('show');
+    }
+}
+
+function showCompareModal() {
+    if (compareList.length < 2) return;
+    
+    const modal = document.getElementById('compareModal');
+    const title = document.getElementById('compareTitle');
+    const content = document.getElementById('compareContent');
+    
+    const models = compareList.map(id => allModels.find(m => m.id === id)).filter(Boolean);
+    
+    title.textContent = `Model Comparison (${models.length})`;
+    
+    let html = '<table class="compare-table"><tr><th>Attribute</th>';
+    models.forEach(m => { html += `<th>${m.name}</th>`; });
+    html += '</tr>';
+    
+    // ID
+    html += '<tr><td><strong>ID</strong></td>';
+    models.forEach(m => { html += `<td>${m.id}</td>`; });
+    html += '</tr>';
+    
+    // Provider
+    html += '<tr><td><strong>Provider</strong></td>';
+    models.forEach(m => { html += `<td>${m.provider}</td>`; });
+    html += '</tr>';
+    
+    // Parameters
+    html += '<tr><td><strong>Parameters</strong></td>';
+    models.forEach(m => { html += `<td>${m.parameters || 'N/A'}</td>`; });
+    html += '</tr>';
+    
+    // Context Length
+    html += '<tr><td><strong>Context Length</strong></td>';
+    models.forEach(m => { html += `<td>${formatContextLength(m.context_length)}</td>`; });
+    html += '</tr>';
+    
+    // Score
+    html += '<tr><td><strong>Score</strong></td>';
+    models.forEach(m => { html += `<td>${m.score ? m.score + '/5.0' : 'N/A'}</td>`; });
+    html += '</tr>';
+    
+    // Tools
+    html += '<tr><td><strong>Tools</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_tools ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    // Vision
+    html += '<tr><td><strong>Vision</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_vision ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    // Reasoning
+    html += '<tr><td><strong>Reasoning</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_reasoning ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    html += '</table>';
+    content.innerHTML = html;
+    modal.style.display = 'block';
+}
+
+function closeCompareModal() {
+    document.getElementById('compareModal').style.display = 'none';
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const ratingModal = document.getElementById('ratingModal');
+    const compareModal = document.getElementById('compareModal');
+    if (event.target == ratingModal) {
+        ratingModal.style.display = 'none';
+    }
+    if (event.target == compareModal) {
+        compareModal.style.display = 'none';
+    }
+};

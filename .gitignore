@@ -22,3 +22,5 @@ Thumbs.db
 
 # Logs
 *.log
+set_github_secret.py
+check_action.py

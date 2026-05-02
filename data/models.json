@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-30 13:03:24 UTC",
+  "last_updated": "2026-05-02 02:07:30 UTC",
   "total_models": 29,
   "total_providers": 14,
   "providers": [
@@ -24,6 +24,7 @@
       "name": "NVIDIA: Nemotron 3 Super (free)",
       "provider": "Nvidia",
       "context_length": 262144,
+      "parameters": "120B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -46,13 +47,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free",
       "usage_volume": "677.0B",
-      "usage_raw": 677
+      "usage_raw": 677,
+      "score": 5.0
     },
     {
       "id": "tencent/hy3-preview:free",
       "name": "Tencent: Hy3 preview (free)",
       "provider": "Tencent",
       "context_length": 262144,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -76,13 +79,15 @@
       "expiration_date": "2026-05-08",
       "model_url": "https://openrouter.ai/tencent/hy3-preview:free",
       "usage_volume": "638.0B",
-      "usage_raw": 638
+      "usage_raw": 638,
+      "score": 5.0
     },
     {
       "id": "inclusionai/ling-2.6-1t:free",
       "name": "inclusionAI: Ling-2.6-1T (free)",
       "provider": "Inclusionai",
       "context_length": 262144,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": false,
@@ -108,13 +113,15 @@
       "expiration_date": "2026-05-07",
       "model_url": "https://openrouter.ai/inclusionai/ling-2.6-1t:free",
       "usage_volume": "369.0B",
-      "usage_raw": 369
+      "usage_raw": 369,
+      "score": 2.9
     },
     {
       "id": "minimax/minimax-m2.5:free",
       "name": "MiniMax: MiniMax M2.5 (free)",
       "provider": "Minimax",
       "context_length": 196608,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -135,13 +142,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/minimax/minimax-m2.5:free",
       "usage_volume": "97.7B",
-      "usage_raw": 97.7
+      "usage_raw": 97.7,
+      "score": 1.0
     },
     {
       "id": "qwen/qwen3-coder:free",
       "name": "Qwen: Qwen3 Coder 480B A35B (free)",
       "provider": "Qwen",
       "context_length": 262000,
+      "parameters": "480B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": false,
@@ -163,13 +172,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/qwen/qwen3-coder:free",
       "usage_volume": "94.2B",
-      "usage_raw": 94.2
+      "usage_raw": 94.2,
+      "score": 0.9
     },
     {
       "id": "openai/gpt-oss-20b:free",
       "name": "OpenAI: gpt-oss-20b (free)",
       "provider": "Openai",
       "context_length": 131072,
+      "parameters": "20B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -190,13 +201,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/openai/gpt-oss-20b:free",
       "usage_volume": "52.3B",
-      "usage_raw": 52.3
+      "usage_raw": 52.3,
+      "score": 0.7
     },
     {
       "id": "meta-llama/llama-3.3-70b-instruct:free",
       "name": "Meta: Llama 3.3 70B Instruct (free)",
       "provider": "Meta Llama",
       "context_length": 65536,
+      "parameters": "70B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": false,
@@ -218,13 +231,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct:free",
       "usage_volume": "45.2B",
-      "usage_raw": 45.2
+      "usage_raw": 45.2,
+      "score": 0.5
     },
     {
       "id": "openai/gpt-oss-120b:free",
       "name": "OpenAI: gpt-oss-120b (free)",
       "provider": "Openai",
       "context_length": 131072,
+      "parameters": "120B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -245,13 +260,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/openai/gpt-oss-120b:free",
       "usage_volume": "38.5B",
-      "usage_raw": 38.5
+      "usage_raw": 38.5,
+      "score": 0.6
     },
     {
       "id": "meta-llama/llama-3.2-3b-instruct:free",
       "name": "Meta: Llama 3.2 3B Instruct (free)",
       "provider": "Meta Llama",
       "context_length": 131072,
+      "parameters": "3B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
@@ -271,13 +288,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/meta-llama/llama-3.2-3b-instruct:free",
       "usage_volume": "35.6B",
-      "usage_raw": 35.6
+      "usage_raw": 35.6,
+      "score": 0.2
     },
     {
       "id": "nvidia/nemotron-3-nano-30b-a3b:free",
       "name": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
       "provider": "Nvidia",
       "context_length": 256000,
+      "parameters": "30B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -298,13 +317,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free",
       "usage_volume": "28.7B",
-      "usage_raw": 28.7
+      "usage_raw": 28.7,
+      "score": 0.5
     },
     {
       "id": "google/gemma-3-27b-it:free",
       "name": "Google: Gemma 3 27B (free)",
       "provider": "Google",
       "context_length": 131072,
+      "parameters": "27B",
       "has_tools": false,
       "has_vision": true,
       "has_reasoning": false,
@@ -323,13 +344,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3-27b-it:free",
       "usage_volume": "22.4B",
-      "usage_raw": 22.4
+      "usage_raw": 22.4,
+      "score": 0.2
     },
     {
       "id": "google/gemma-3-4b-it:free",
       "name": "Google: Gemma 3 4B (free)",
       "provider": "Google",
       "context_length": 32768,
+      "parameters": "4B",
       "has_tools": false,
       "has_vision": true,
       "has_reasoning": false,
@@ -348,13 +371,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3-4b-it:free",
       "usage_volume": "19.3B",
-      "usage_raw": 19.3
+      "usage_raw": 19.3,
+      "score": 0.2
     },
     {
       "id": "nvidia/nemotron-nano-9b-v2:free",
       "name": "NVIDIA: Nemotron Nano 9B V2 (free)",
       "provider": "Nvidia",
       "context_length": 128000,
+      "parameters": "9B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -377,13 +402,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-9b-v2:free",
       "usage_volume": "18.7B",
-      "usage_raw": 18.7
+      "usage_raw": 18.7,
+      "score": 0.4
     },
     {
       "id": "google/gemma-4-31b-it:free",
       "name": "Google: Gemma 4 31B (free)",
       "provider": "Google",
       "context_length": 262144,
+      "parameters": "31B",
       "has_tools": true,
       "has_vision": true,
       "has_reasoning": true,
@@ -405,13 +432,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-4-31b-it:free",
       "usage_volume": "16.1B",
-      "usage_raw": 16.1
+      "usage_raw": 16.1,
+      "score": 0.5
     },
     {
       "id": "z-ai/glm-4.5-air:free",
       "name": "Z.ai: GLM 4.5 Air (free)",
       "provider": "Z Ai",
       "context_length": 131072,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -431,13 +460,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/z-ai/glm-4.5-air:free",
       "usage_volume": "15.8B",
-      "usage_raw": 15.8
+      "usage_raw": 15.8,
+      "score": 0.4
     },
     {
       "id": "nousresearch/hermes-3-llama-3.1-405b:free",
       "name": "Nous: Hermes 3 405B Instruct (free)",
       "provider": "Nousresearch",
       "context_length": 131072,
+      "parameters": "405B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
@@ -457,13 +488,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b:free",
       "usage_volume": "12.3B",
-      "usage_raw": 12.3
+      "usage_raw": 12.3,
+      "score": 0.1
     },
     {
       "id": "google/gemma-4-26b-a4b-it:free",
       "name": "Google: Gemma 4 26B A4B  (free)",
       "provider": "Google",
       "context_length": 262144,
+      "parameters": "26B",
       "has_tools": true,
       "has_vision": true,
       "has_reasoning": true,
@@ -485,13 +518,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-4-26b-a4b-it:free",
       "usage_volume": "9.3B",
-      "usage_raw": 9.26
+      "usage_raw": 9.26,
+      "score": 0.4
     },
     {
       "id": "nvidia/nemotron-nano-12b-v2-vl:free",
       "name": "NVIDIA: Nemotron Nano 12B 2 VL (free)",
       "provider": "Nvidia",
       "context_length": 128000,
+      "parameters": "12B",
       "has_tools": true,
       "has_vision": true,
       "has_reasoning": true,
@@ -512,13 +547,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-12b-v2-vl:free",
       "usage_volume": "8.9B",
-      "usage_raw": 8.9
+      "usage_raw": 8.9,
+      "score": 0.4
     },
     {
       "id": "cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
       "name": "Venice: Uncensored (free)",
       "provider": "Cognitivecomputations",
       "context_length": 32768,
+      "parameters": "24B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
@@ -540,13 +577,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
       "usage_volume": "7.6B",
-      "usage_raw": 7.6
+      "usage_raw": 7.6,
+      "score": 0.0
     },
     {
       "id": "baidu/qianfan-ocr-fast:free",
       "name": "Baidu: Qianfan-OCR-Fast (free)",
       "provider": "Baidu",
       "context_length": 65536,
+      "parameters": null,
       "has_tools": false,
       "has_vision": true,
       "has_reasoning": true,
@@ -569,13 +608,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/baidu/qianfan-ocr-fast:free",
       "usage_volume": "5.2B",
-      "usage_raw": 5.2
+      "usage_raw": 5.2,
+      "score": 0.2
     },
     {
       "id": "liquid/lfm-2.5-1.2b-instruct:free",
       "name": "LiquidAI: LFM2.5-1.2B-Instruct (free)",
       "provider": "Liquid",
       "context_length": 32768,
+      "parameters": "1.2B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
@@ -598,13 +639,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-instruct:free",
       "usage_volume": "4.5B",
-      "usage_raw": 4.5
+      "usage_raw": 4.5,
+      "score": 0.0
     },
     {
       "id": "liquid/lfm-2.5-1.2b-thinking:free",
       "name": "LiquidAI: LFM2.5-1.2B-Thinking (free)",
       "provider": "Liquid",
       "context_length": 32768,
+      "parameters": "1.2B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": true,
@@ -629,13 +672,15 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-thinking:free",
       "usage_volume": "3.8B",
-      "usage_raw": 3.8
+      "usage_raw": 3.8,
+      "score": 0.1
     },
     {
       "id": "qwen/qwen3-next-80b-a3b-instruct:free",
       "name": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
       "provider": "Qwen",
       "context_length": 262144,
+      "parameters": "80B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": false,
@@ -666,6 +711,7 @@
       "name": "NVIDIA: Nemotron 3 Nano Omni (free)",
       "provider": "Nvidia",
       "context_length": 256000,
+      "parameters": "30B",
       "has_tools": true,
       "has_vision": true,
       "has_reasoning": true,
@@ -693,6 +739,7 @@
       "name": "Poolside: Laguna XS.2 (free)",
       "provider": "Poolside",
       "context_length": 131072,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -718,6 +765,7 @@
       "name": "Poolside: Laguna M.1 (free)",
       "provider": "Poolside",
       "context_length": 131072,
+      "parameters": null,
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -743,6 +791,7 @@
       "name": "Google: Gemma 3 12B (free)",
       "provider": "Google",
       "context_length": 32768,
+      "parameters": "12B",
       "has_tools": false,
       "has_vision": true,
       "has_reasoning": false,
@@ -767,6 +816,7 @@
       "name": "Google: Gemma 3n 2B (free)",
       "provider": "Google",
       "context_length": 8192,
+      "parameters": "2B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
@@ -791,6 +841,7 @@
       "name": "Google: Gemma 3n 4B (free)",
       "provider": "Google",
       "context_length": 8192,
+      "parameters": "4B",
       "has_tools": false,
       "has_vision": false,
       "has_reasoning": false,
