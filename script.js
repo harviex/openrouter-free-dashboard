@@ -404,7 +404,7 @@ function createModelCard(model) {
                     <div class="card-stats">
                         <span class="stat">📏 ${contextLength}</span>
                         <span class="stat">📊 ${model.parameters || 'N/A'}</span>
-                        ${model.score ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
+                        ${model.score !== null && model.score !== undefined ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
                         <span class="stat">📅 ${createdDate}</span>
                     </div>
                     <div class="capabilities">${capabilities.join('')}</div>
@@ -439,7 +439,7 @@ function createModelCard(model) {
                 </div>
                 <div class="capabilities">${capabilities.join('')}</div>
                 <div class="card-stats">
-                    ${model.score ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
+                    ${model.score !== null && model.score !== undefined ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
                     <span class="stat">📅 ${createdDate}</span>
                 </div>
             </div>

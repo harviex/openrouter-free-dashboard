@@ -73,6 +73,10 @@ def extract_model_info(model):
     provider = model_id.split('/')[0] if '/' in model_id else 'Unknown'
     provider = provider.replace('-', ' ').title()
     
+    # Extract parameters from model name or id
+    model_name = model.get('name', '')
+    parameters = extract_parameters(model_name, model_id)
+    
     # Get expiration date
     expiration = model.get('expiration_date', None)
     
@@ -92,6 +96,7 @@ def extract_model_info(model):
         'name': model.get('name', 'Unknown Model'),
         'provider': provider,
         'context_length': model.get('context_length', 0),
+        'parameters': parameters,
         'has_tools': has_tools,
         'has_vision': has_vision,
         'has_reasoning': has_reasoning,
@@ -105,6 +110,60 @@ def extract_model_info(model):
         'usage_volume': usage_display,
         'usage_raw': usage_volume
     }
+
+def extract_parameters(model_name, model_id):
+    """Extract parameter count from model name or id"""
+    import re
+    
+    text = (model_name + ' ' + model_id).lower()
+    
+    # Pattern: number + b (e.g., 120b, 70b, 7b, 1.2b)
+    matches = re.findall(r'(\d+(?:\.\d+)?)\s*b', text)
+    if matches:
+        # Return the largest number found (likely the main parameter count)
+        params = sorted(matches, key=lambda x: float(x), reverse=True)
+        return f"{params[0]}B"
+    
+    # Additional patterns: 3.1b, 3.2b, 3.3b, 4.5b, 2.6b, 2.5b
+    # Try patterns like "a12b", "a3b", "a4b" (MoE models)
+    moe_matches = re.findall(r'a(\d+(?:\.\d+)?)\s*b', text)
+    if moe_matches:
+        params = sorted(moe_matches, key=lambda x: float(x), reverse=True)
+        return f"A{params[0]}B"
+    
+    return None
+
+def calculate_score(model_info, all_models):
+    """Calculate a score from 0-5 based on usage, freshness, and benchmarks"""
+    # For now, base score primarily on usage volume (normalized to 0-5)
+    usage = model_info.get('usage_raw', 0)
+    if not usage:
+        return None
+    
+    # Get all usage values for normalization
+    all_usages = [m.get('usage_raw', 0) for m in all_models if m.get('usage_raw')]
+    if not all_usages:
+        return None
+    
+    max_usage = max(all_usages)
+    min_usage = min(all_usages)
+    
+    if max_usage == min_usage:
+        return 2.5  # Default middle score
+    
+    # Normalize to 0-5 range (higher usage = higher score)
+    normalized = (usage - min_usage) / (max_usage - min_usage)
+    score = round(normalized * 5, 1)
+    
+    # Bonus for having tools/vision/reasoning
+    if model_info.get('has_tools'):
+        score += 0.2
+    if model_info.get('has_vision'):
+        score += 0.1
+    if model_info.get('has_reasoning'):
+        score += 0.1
+    
+    return min(round(score, 1), 5.0)  # Cap at 5.0
 
 def main():
     print("Fetching models from OpenRouter API...")
@@ -122,6 +181,12 @@ def main():
     
     # Extract info
     models_info = [extract_model_info(m) for m in verified_free]
+    
+    # Calculate scores based on all models
+    for model in models_info:
+        score = calculate_score(model, models_info)
+        if score is not None:
+            model['score'] = score
     
     # Sort by usage volume (descending), then by context length
     models_info.sort(key=lambda x: (x['usage_raw'] or 0, x['context_length']), reverse=True)
