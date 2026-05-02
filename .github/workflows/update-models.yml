@@ -1,0 +1,42 @@
+name: Update Models Data
+
+on:
+  schedule:
+    # Run every day at 2:00 UTC (10:00 Beijing time)
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to push changes
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: pip install requests
+        
+    - name: Fetch latest models from OpenRouter
+      run: python fetch_models.py
+      
+    - name: Add HuggingFace data and scores
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: python update_with_scores.py
+        
+    - name: Add parameters information
+      run: python add_parameters.py
+        
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Auto-update: Models data and scores"
+        file_pattern: 'data/models.json'

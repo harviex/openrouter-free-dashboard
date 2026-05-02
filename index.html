@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRouter Free Models Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🤖 <span data-i18n="title">OpenRouter Free Models</span></h1>
+                <span class="subtitle" data-i18n="subtitle">Daily updated dashboard for free AI models</span>
+            </div>
+        <div class="nav-controls">
+            <div class="nav-stats" id="stats">
+                <span class="stat-item">📊 Loading...</span>
+            </div>
+            <div class="nav-buttons">
+                <a href="https://github.com/harviex/openrouter-free-dashboard" target="_blank" class="github-star-nav" id="githubStarNav">
+                    ⭐ Star <span id="starCount"></span>
+                </a>
+                <button class="theme-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌓</button>
+                <select id="languageSelect" onchange="changeLanguage()" class="lang-select">
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="ja">🇯🇵 日本語</option>
+                </select>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <div class="filter-group">
+                <label data-i18n="sort_by">Sort by:</label>
+                <select id="sortBy" onchange="applyFilters()">
+                    <option value="parameters_high" data-i18n="sort_parameters_high" selected>Parameters (High to Low)</option>
+                    <option value="parameters_low" data-i18n="sort_parameters_low">Parameters (Low to High)</option>
+                    <option value="score" data-i18n="sort_score">Score (Highest First)</option>
+                    <option value="context_length" data-i18n="sort_context_high">Context Length (High to Low)</option>
+                    <option value="context_length_asc" data-i18n="sort_context_low">Context Length (Low to High)</option>
+                    <option value="name" data-i18n="sort_name">Name (A-Z)</option>
+                    <option value="created" data-i18n="sort_newest">Newest First</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label data-i18n="provider">Provider:</label>
+                <select id="providerFilter" onchange="applyFilters()">
+                    <option value="all" data-i18n="all_providers">All Providers</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label data-i18n="capabilities">Capabilities:</label>
+                <div class="capability-filters">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filterTools" onchange="applyFilters()">
+                        <span class="checkmark">🔧</span> <span data-i18n="tools">Tools</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filterVision" onchange="applyFilters()">
+                        <span class="checkmark">👁️</span> <span data-i18n="vision">Vision</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filterReasoning" onchange="applyFilters()">
+                        <span class="checkmark">💭</span> <span data-i18n="reasoning">Reasoning</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group search-box">
+                <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Search models..." oninput="applyFilters()">
+                <span class="search-icon">🔍</span>
+            </div>
+        </section>
+
+        <!-- View Toggle -->
+        <section class="view-toggle">
+            <button class="view-btn active" id="gridView" onclick="setView('grid')" data-i18n-title="grid_view" title="Grid View">⊞ <span data-i18n="grid_view">Grid</span></button>
+            <button class="view-btn" id="listView" onclick="setView('list')" data-i18n-title="list_view" title="List View">☰ <span data-i18n="list_view">List</span></button>
+            <button class="refresh-btn" onclick="refreshData()" data-i18n="refresh">🔄 Refresh</button>
+        </section>
+
+        <!-- Models Container -->
+        <section class="models-container" id="modelsContainer">
+            <div class="loading" data-i18n="loading">Loading models...</div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footer_data">Data sourced from <a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> API</p>
+            <p>⚡ Created by <a href="https://hermes-agent.nousresearch.com" target="_blank">Hermes Agent (小爱玛)</a> for Harvie Tse</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/harviex/openrouter-free-dashboard" target="_blank" class="github-star-link">
+                    ⭐ Star on GitHub
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" data-i18n="copied_toast">Copied to clipboard!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
