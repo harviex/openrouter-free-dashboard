@@ -33,7 +33,9 @@ PARAMETER_MAP = {
     'liquid/lfm-2.5-1.2b-thinking:free': '1.2B',
     'liquid/lfm-2.5-1.2b-instruct:free': '1.2B',
     'cognitivecomputations/dolphin-mistral-24b-venice-edition:free': '24B',
-    'baidu/qianfan-ocr-fast:free': 'Unknown',
+    'baidu/qianfan-ocr-fast:free': '4B',
+    'poolside/laguna-xs.2:free': '33B-A3B',
+    'poolside/laguna-m.1:free': '225B-A23B',
     'openrouter/free': 'Unknown',
 }
 
