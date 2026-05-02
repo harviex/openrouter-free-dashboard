@@ -295,6 +295,9 @@ function applyFilters() {
     
     // Sort
     switch(sortBy) {
+        case 'newest':
+            filteredModels.sort((a, b) => b.created - a.created);
+            break;
         case 'parameters_high':
             filteredModels.sort((a, b) => parseParameters(b.parameters) - parseParameters(a.parameters));
             break;
@@ -309,9 +312,6 @@ function applyFilters() {
             break;
         case 'name':
             filteredModels.sort((a, b) => a.name.localeCompare(b.name));
-            break;
-        case 'created':
-            filteredModels.sort((a, b) => b.created - a.created);
             break;
     }
     
@@ -349,10 +349,6 @@ function createModelCard(model) {
     const expiryInfo = formatExpiry(model.expiration_date);
     const copyHint = t.click_to_copy + ' ' + model.id;
     
-    // Requests per day display (for previous day relative to last_updated)
-    const reqDisplay = (model.requests_per_day !== null && model.requests_per_day !== undefined) ? 
-        ` <span class="stat">📊 ${model.requests_per_day}</span>` : '';
-    
     // Highlight search terms
     const highlightedName = highlightText(model.name, searchTerm);
     const highlightedId = highlightText(model.id, searchTerm);
@@ -376,8 +372,8 @@ function createModelCard(model) {
                 <div class="card-body">
                     <div class="card-stats">
                         <span class="stat">📏 ${contextLength}</span>
-                        <span class="stat">📊 ${model.parameters || 'N/A'}${model.paid_pricing ? ` | $${model.paid_pricing.prompt}/$${model.paid_pricing.completion}/1M` : ''}</span>
-                        <span class="stat">📅 ${createdDate}</span>${reqDisplay}
+                        <span class="stat">📊 ${model.parameters || 'N/A'}</span>
+                        <span class="stat">📅 ${createdDate}</span>
                     </div>
                     <div class="capabilities">${capabilities.join('')}</div>
                 </div>
@@ -407,11 +403,11 @@ function createModelCard(model) {
             <div class="card-body">
                 <div class="card-stats">
                     <span class="stat">📏 ${contextLength}</span>
-                    <span class="stat">📊 ${model.parameters || 'N/A'}${model.paid_pricing ? ` | $${model.paid_pricing.prompt}/$${model.paid_pricing.completion}/1M` : ''}</span>
+                    <span class="stat">📊 ${model.parameters || 'N/A'}</span>
                 </div>
                 <div class="capabilities">${capabilities.join('')}</div>
                 <div class="card-stats">
-                    <span class="stat">📅 ${createdDate}</span>${reqDisplay}
+                    <span class="stat">📅 ${createdDate}</span>
                 </div>
             </div>
             <div class="card-footer">
