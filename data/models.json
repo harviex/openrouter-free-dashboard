@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-02 10:48:23 UTC",
+  "last_updated": "2026-05-02 11:11:59 UTC",
   "total_models": 29,
   "total_providers": 14,
   "providers": [
@@ -49,6 +49,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free",
       "usage_volume": "677.0B",
       "usage_raw": 677,
+      "requests_per_day": null,
       "score": 5.0
     },
     {
@@ -82,6 +83,7 @@
       "model_url": "https://openrouter.ai/tencent/hy3-preview:free",
       "usage_volume": "638.0B",
       "usage_raw": 638,
+      "requests_per_day": null,
       "score": 5.0
     },
     {
@@ -117,6 +119,7 @@
       "model_url": "https://openrouter.ai/inclusionai/ling-2.6-1t:free",
       "usage_volume": "369.0B",
       "usage_raw": 369,
+      "requests_per_day": null,
       "score": 2.9
     },
     {
@@ -147,6 +150,7 @@
       "model_url": "https://openrouter.ai/minimax/minimax-m2.5:free",
       "usage_volume": "97.7B",
       "usage_raw": 97.7,
+      "requests_per_day": null,
       "score": 1.0
     },
     {
@@ -178,6 +182,7 @@
       "model_url": "https://openrouter.ai/qwen/qwen3-coder:free",
       "usage_volume": "94.2B",
       "usage_raw": 94.2,
+      "requests_per_day": null,
       "score": 0.9
     },
     {
@@ -208,6 +213,7 @@
       "model_url": "https://openrouter.ai/openai/gpt-oss-20b:free",
       "usage_volume": "52.3B",
       "usage_raw": 52.3,
+      "requests_per_day": null,
       "score": 0.7
     },
     {
@@ -239,6 +245,7 @@
       "model_url": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct:free",
       "usage_volume": "45.2B",
       "usage_raw": 45.2,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -269,6 +276,7 @@
       "model_url": "https://openrouter.ai/openai/gpt-oss-120b:free",
       "usage_volume": "38.5B",
       "usage_raw": 38.5,
+      "requests_per_day": null,
       "score": 0.6
     },
     {
@@ -298,6 +306,7 @@
       "model_url": "https://openrouter.ai/meta-llama/llama-3.2-3b-instruct:free",
       "usage_volume": "35.6B",
       "usage_raw": 35.6,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -328,6 +337,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free",
       "usage_volume": "28.7B",
       "usage_raw": 28.7,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -356,6 +366,7 @@
       "model_url": "https://openrouter.ai/google/gemma-3-27b-it:free",
       "usage_volume": "22.4B",
       "usage_raw": 22.4,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -384,6 +395,7 @@
       "model_url": "https://openrouter.ai/google/gemma-3-4b-it:free",
       "usage_volume": "19.3B",
       "usage_raw": 19.3,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -416,6 +428,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-9b-v2:free",
       "usage_volume": "18.7B",
       "usage_raw": 18.7,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -447,6 +460,7 @@
       "model_url": "https://openrouter.ai/google/gemma-4-31b-it:free",
       "usage_volume": "16.1B",
       "usage_raw": 16.1,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -476,6 +490,7 @@
       "model_url": "https://openrouter.ai/z-ai/glm-4.5-air:free",
       "usage_volume": "15.8B",
       "usage_raw": 15.8,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -505,6 +520,7 @@
       "model_url": "https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b:free",
       "usage_volume": "12.3B",
       "usage_raw": 12.3,
+      "requests_per_day": null,
       "score": 0.1
     },
     {
@@ -536,6 +552,7 @@
       "model_url": "https://openrouter.ai/google/gemma-4-26b-a4b-it:free",
       "usage_volume": "9.3B",
       "usage_raw": 9.26,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -566,6 +583,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-12b-v2-vl:free",
       "usage_volume": "8.9B",
       "usage_raw": 8.9,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -597,6 +615,7 @@
       "model_url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
       "usage_volume": "7.6B",
       "usage_raw": 7.6,
+      "requests_per_day": null,
       "score": 0.0
     },
     {
@@ -629,6 +648,7 @@
       "model_url": "https://openrouter.ai/baidu/qianfan-ocr-fast:free",
       "usage_volume": "5.2B",
       "usage_raw": 5.2,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -661,6 +681,7 @@
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-instruct:free",
       "usage_volume": "4.5B",
       "usage_raw": 4.5,
+      "requests_per_day": null,
       "score": 0.0
     },
     {
@@ -695,6 +716,7 @@
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-thinking:free",
       "usage_volume": "3.8B",
       "usage_raw": 3.8,
+      "requests_per_day": null,
       "score": 0.1
     },
     {
@@ -727,7 +749,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/qwen/qwen3-next-80b-a3b-instruct:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -756,7 +779,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "poolside/laguna-xs.2:free",
@@ -783,7 +807,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-xs.2:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "poolside/laguna-m.1:free",
@@ -810,7 +835,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-m.1:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3-12b-it:free",
@@ -836,7 +862,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3-12b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3n-e2b-it:free",
@@ -862,7 +889,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3n-e2b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3n-e4b-it:free",
@@ -888,7 +916,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3n-e4b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     }
   ]
 }

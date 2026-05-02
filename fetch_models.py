@@ -5,7 +5,8 @@ Only includes models with ':free' suffix. Adds usage volume data.
 """
 import json
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
+import re
 
 # Manual parameter mapping for models where API doesn't provide parameters
 PARAMETER_MAP = {
@@ -86,7 +87,7 @@ def is_free_model(model):
     except:
         return False
 
-def extract_model_info(model):
+def extract_model_info(model, last_updated=None):
     """Extract relevant information from model data"""
     architecture = model.get('architecture', {})
     input_modalities = architecture.get('input_modalities', [])
@@ -123,6 +124,18 @@ def extract_model_info(model):
         else:
             usage_display = f"{usage_volume*1000:.0f}M"
     
+    # Get requests per day (analytics data)
+    requests_per_day = None
+    if last_updated:
+        analytics_by_date = extract_analytics(model_id)
+        if analytics_by_date:
+            # Calculate target date (last_updated - 1 day)
+            target_date = (last_updated - timedelta(days=1)).strftime('%Y-%m-%d')
+            # Get entry for target date
+            entry = analytics_by_date.get(target_date)
+            if entry:
+                requests_per_day = entry.get('count')
+    
     return {
         'id': model_id,
         'name': model.get('name', 'Unknown Model'),
@@ -141,7 +154,8 @@ def extract_model_info(model):
         'expiration_date': expiration,
         'model_url': f"https://openrouter.ai/{model_id}",
         'usage_volume': usage_display,
-        'usage_raw': usage_volume
+        'usage_raw': usage_volume,
+        'requests_per_day': requests_per_day  # Request count for (last_updated - 1 day)
     }
 
 def get_paid_pricing(free_model_id):
@@ -192,6 +206,74 @@ def get_paid_pricing(free_model_id):
         # Model not found (404) or other HTTP error
         return None
     except Exception as e:
+        return None
+
+def extract_analytics(model_id):
+    """Extract analytics data from model page (requests per day)"""
+    # Convert free model ID to page path (remove :free suffix)
+    page_path = model_id.replace(':free', '')
+    url = f"https://openrouter.ai/{page_path}"
+    
+    try:
+        # Use curl via subprocess to get the page (better JS rendering simulation)
+        import subprocess
+        cmd = [
+            'curl', '-s', '-L',
+            '-H', 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            '-H', 'Accept-Language: en-US,en;q=0.5',
+            url
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        html = result.stdout
+        
+        if not html:
+            print(f"  curl returned empty HTML for {model_id}")
+            return None
+        
+        # Find __NEXT_DATA__ script tag
+        # More flexible regex: allow any attributes between <script and id=
+        match = re.search(r'<script[^>]*id="__NEXT_DATA__"[^>]*>(.*?)</script>', html, re.DOTALL)
+        if not match:
+            print(f"  __NEXT_DATA__ not found in HTML for {model_id} (HTML length: {len(html)})")
+            # Debug: check if "analytics" is in HTML
+            if '"analytics"' in html:
+                print(f"  Found 'analytics' string in HTML, but regex failed")
+            return None
+        
+        data = json.loads(match.group(1))
+        
+        # Navigate to analytics data
+        # Path: props.pageProps.model.analytics
+        page_props = data.get('props', {}).get('pageProps', {})
+        if not page_props:
+            print(f"  No pageProps found for {model_id}")
+            return None
+            
+        model_data = page_props.get('model', {})
+        if not model_data:
+            print(f"  No model data found for {model_id}")
+            return None
+            
+        analytics = model_data.get('analytics', [])
+        if not analytics:
+            print(f"  No analytics found for {model_id}")
+            return None
+        
+        print(f"  Found {len(analytics)} analytics entries for {model_id}")
+        
+        # Convert to dict keyed by date (only date part, e.g., "2026-05-01")
+        analytics_by_date = {}
+        for entry in analytics:
+            date_str = entry.get('date', '')
+            if date_str:
+                # Extract only the date part (e.g., "2026-05-01")
+                date_only = date_str.split()[0] if ' ' in date_str else date_str
+                analytics_by_date[date_only] = entry
+        
+        return analytics_by_date
+    except Exception as e:
+        print(f"  Error extracting analytics for {model_id}: {e}")
         return None
 
 def extract_parameters(model_name, model_id):
@@ -267,8 +349,11 @@ def main():
     verified_free = [m for m in free_models if is_free_model(m)]
     print(f"Verified free models: {len(verified_free)}")
     
-    # Extract info
-    models_info = [extract_model_info(m) for m in verified_free]
+    # Get last_updated time (for analytics calculation)
+    last_updated = datetime.now()
+    
+    # Extract info (pass last_updated for requests_per_day calculation)
+    models_info = [extract_model_info(m, last_updated) for m in verified_free]
     
     # Calculate scores based on all models
     for model in models_info:
@@ -284,7 +369,7 @@ def main():
     
     # Prepare output data
     output = {
-        'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC'),
+        'last_updated': last_updated.strftime('%Y-%m-%d %H:%M:%S UTC'),
         'total_models': len(models_info),
         'total_providers': len(providers),
         'providers': providers,

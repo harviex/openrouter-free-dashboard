@@ -349,6 +349,10 @@ function createModelCard(model) {
     const expiryInfo = formatExpiry(model.expiration_date);
     const copyHint = t.click_to_copy + ' ' + model.id;
     
+    // Requests per day display (for previous day relative to last_updated)
+    const reqDisplay = (model.requests_per_day !== null && model.requests_per_day !== undefined) ? 
+        ` <span class="stat">📊 ${model.requests_per_day}</span>` : '';
+    
     // Highlight search terms
     const highlightedName = highlightText(model.name, searchTerm);
     const highlightedId = highlightText(model.id, searchTerm);
@@ -373,7 +377,7 @@ function createModelCard(model) {
                     <div class="card-stats">
                         <span class="stat">📏 ${contextLength}</span>
                         <span class="stat">📊 ${model.parameters || 'N/A'}${model.paid_pricing ? ` | $${model.paid_pricing.prompt}/$${model.paid_pricing.completion}/1M` : ''}</span>
-                        <span class="stat">📅 ${createdDate}</span>
+                        <span class="stat">📅 ${createdDate}</span>${reqDisplay}
                     </div>
                     <div class="capabilities">${capabilities.join('')}</div>
                 </div>
@@ -407,7 +411,7 @@ function createModelCard(model) {
                 </div>
                 <div class="capabilities">${capabilities.join('')}</div>
                 <div class="card-stats">
-                    <span class="stat">📅 ${createdDate}</span>
+                    <span class="stat">📅 ${createdDate}</span>${reqDisplay}
                 </div>
             </div>
             <div class="card-footer">
