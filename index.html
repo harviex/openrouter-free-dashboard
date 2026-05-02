@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenRouter Free Models Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="additions.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 </head>
 <body>
@@ -93,6 +94,24 @@
         </section>
     </main>
 
+    <!-- Rating Info Modal -->
+    <div id="ratingModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRatingModal()">&times;</span>
+            <h2 id="ratingModalTitle">Rating Info</h2>
+            <div id="ratingModalBody">
+                <p><strong>Score Formula:</strong></p>
+                <ul>
+                    <li><strong>40%</strong> - Community Popularity (Likes + Downloads from HuggingFace)</li>
+                    <li><strong>20%</strong> - Freshness (Days since model creation)</li>
+                    <li><strong>40%</strong> - Benchmark Performance (Presence of eval-results tag)</li>
+                </ul>
+                <p><strong>Score Range:</strong> 0.0 - 5.0</p>
+                <p><em>Updated daily via GitHub Actions</em></p>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <p data-i18n="footer_data">Data sourced from <a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> API</p>
@@ -106,6 +125,15 @@
     </footer>
 
     <div class="toast" id="toast" data-i18n="copied_toast">Copied to clipboard!</div>
+    
+    <!-- Compare Modal -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content compare-modal">
+            <span class="modal-close" onclick="closeCompareModal()">&times;</span>
+            <h2 id="compareTitle">Model Comparison</h2>
+            <div id="compareContent"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -6,6 +6,7 @@ let filteredModels = [];
 let currentView = 'grid';
 let currentLang = 'en';
 let savedData = null;  // Store data for re-rendering on language change
+let searchTerm = '';  // Global search term for highlighting
 
 // i18n translations
 const translations = {
@@ -42,7 +43,17 @@ const translations = {
         no_expiry: 'No expiry',
         rating: 'Rating: ',
         models: 'Models',
-        providers: 'Providers'
+        providers: 'Providers',
+        rating_info: 'Rating Info',
+        rating_formula: 'Score Formula:',
+        rating_40_p: '40% - Community Popularity (Likes + Downloads from HuggingFace)',
+        rating_20_f: '20% - Freshness (Days since model creation)',
+        rating_40_b: '40% - Benchmark Performance (Presence of eval-results tag)',
+        rating_range: 'Score Range: 0.0 - 5.0',
+        rating_updated: 'Updated daily via GitHub Actions',
+        details: 'Details',
+        compare: 'Compare',
+        max_compare: 'Maximum 3 models can be compared'
     },
     zh: {
         title: 'OpenRouter 免费模型面板',
@@ -77,7 +88,17 @@ const translations = {
         no_expiry: '无限期',
         rating: '评分：',
         models: '模型',
-        providers: '提供商'
+        providers: '提供商',
+        rating_info: '评分说明',
+        rating_formula: '评分公式：',
+        rating_40_p: '40% - 社区热度（HuggingFace 点赞 + 下载量）',
+        rating_20_f: '20% - 新鲜度（模型创建天数）',
+        rating_40_b: '40% - 基准性能（是否存在 eval-results 标签）',
+        rating_range: '评分范围：0.0 - 5.0',
+        rating_updated: '每日通过 GitHub Actions 更新',
+        details: '详情',
+        compare: '对比',
+        max_compare: '最多可对比3个模型'
     },
     ja: {
         title: 'OpenRouter 無料モデルダッシュボード',
@@ -112,7 +133,17 @@ const translations = {
         no_expiry: '無期限',
         rating: '評価：',
         models: 'モデル',
-        providers: 'プロバイダー'
+        providers: 'プロバイダー',
+        rating_info: '評価について',
+        rating_formula: 'スコア計算式：',
+        rating_40_p: '40% - コミュニティ人気（いいね + ダウンロード数）',
+        rating_20_f: '20% - 新しさ（モデル作成からの日数）',
+        rating_40_b: '40% - ベンチマーク性能（eval-resultsタグの有無）',
+        rating_range: 'スコア範囲：0.0 - 5.0',
+        rating_updated: '毎日GitHub Actionsで更新',
+        details: '詳細',
+        compare: '比較',
+        max_compare: '最大3つのモデルを比較できます'
     }
 };
 
@@ -257,7 +288,7 @@ function populateProviders() {
 function applyFilters() {
     const providerFilter = document.getElementById('providerFilter').value;
     const sortBy = document.getElementById('sortBy').value;
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const filterTools = document.getElementById('filterTools').checked;
     const filterVision = document.getElementById('filterVision').checked;
     const filterReasoning = document.getElementById('filterReasoning').checked;
@@ -349,6 +380,11 @@ function createModelCard(model) {
     const expiryInfo = formatExpiry(model.expiration_date);
     const copyHint = t.click_to_copy + ' ' + model.id;
     
+    // Highlight search terms
+    const highlightedName = highlightText(model.name, searchTerm);
+    const highlightedId = highlightText(model.id, searchTerm);
+    const highlightedProvider = highlightText(model.provider, searchTerm);
+    
     // Build footer content: FREE badge + optional expiry (inline)
     let footerContent = '<span class="free-badge">' + t.free_model + '</span>';
     if (expiryInfo) {
@@ -358,22 +394,31 @@ function createModelCard(model) {
     if (currentView === 'list') {
         return `
             <div class="model-card list-view" onclick="copyModelId('${model.id}')" title="${copyHint}">
+                <input type="checkbox" class="compare-checkbox" onchange="event.stopPropagation(); toggleCompare('${model.id}')">
                 <div class="card-header">
-                    <span class="provider-badge">${model.provider}</span>
-                    <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
-                    <div class="model-id">${model.id}</div>
+                    <span class="provider-badge">${highlightedProvider}</span>
+                    <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${highlightedName}</a></div>
+                    <div class="model-id">${highlightedId}</div>
                 </div>
                 <div class="card-body">
                     <div class="card-stats">
                         <span class="stat">📏 ${contextLength}</span>
                         <span class="stat">📊 ${model.parameters || 'N/A'}</span>
-                        ${model.score ? `<span class="stat">⭐ ${model.score}/5.0</span>` : ''}
+                        ${model.score ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
                         <span class="stat">📅 ${createdDate}</span>
                     </div>
                     <div class="capabilities">${capabilities.join('')}</div>
                 </div>
                 <div class="card-footer">
                     ${footerContent}
+                    <button class="expand-btn" onclick="event.stopPropagation(); toggleDetails('${model.id.replace(/[^a-zA-Z0-9]/g, '_')}')">${t.details || 'Details'} ▼</button>
+                </div>
+                <div class="model-details" id="details_${model.id.replace(/[^a-zA-Z0-9]/g, '_')}">
+                    <div class="details-content">
+                        <p><strong>${t.description || 'Description'}:</strong> ${model.description || 'N/A'}</p>
+                        <p><strong>${t.supported_params || 'Supported Parameters'}:</strong> ${model.supported_parameters ? model.supported_parameters.join(', ') : 'None'}</p>
+                        <p><strong>${t.created || 'Created'}:</strong> ${createdDate}</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -381,10 +426,11 @@ function createModelCard(model) {
     
     return `
         <div class="model-card" onclick="copyModelId('${model.id}')" title="${copyHint}">
+            <input type="checkbox" class="compare-checkbox" onchange="event.stopPropagation(); toggleCompare('${model.id}')">
             <div class="card-header">
-                <span class="provider-badge">${model.provider}</span>
-                <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${model.name}</a></div>
-                <div class="model-id">${model.id}</div>
+                <span class="provider-badge">${highlightedProvider}</span>
+                <div class="model-name"><a href="${model.model_url || '#'}" target="_blank" onclick="event.stopPropagation()">${highlightedName}</a></div>
+                <div class="model-id">${highlightedId}</div>
             </div>
             <div class="card-body">
                 <div class="card-stats">
@@ -393,7 +439,7 @@ function createModelCard(model) {
                 </div>
                 <div class="capabilities">${capabilities.join('')}</div>
                 <div class="card-stats">
-                    ${model.score ? `<span class="stat">⭐ ${model.score}/5.0</span>` : ''}
+                    ${model.score ? `<span class="stat">⭐ ${model.score}/5.0 <span class="info-icon" onclick="event.stopPropagation(); openRatingModal()">ℹ️</span></span>` : ''}
                     <span class="stat">📅 ${createdDate}</span>
                 </div>
             </div>
@@ -539,3 +585,181 @@ async function getGitHubStars() {
         console.error('Failed to fetch GitHub stars:', error);
     }
 }
+
+// Rating Modal functions
+function openRatingModal() {
+    const modal = document.getElementById('ratingModal');
+    const title = document.getElementById('ratingModalTitle');
+    const body = document.getElementById('ratingModalBody');
+    const t = translations[currentLang];
+    
+    title.textContent = t.rating_info;
+    body.innerHTML = `
+        <p><strong>${t.rating_formula}</strong></p>
+        <ul>
+            <li><strong>40%</strong> - ${t.rating_40_p}</li>
+            <li><strong>20%</strong> - ${t.rating_20_f}</li>
+            <li><strong>40%</strong> - ${t.rating_40_b}</li>
+        </ul>
+        <p><strong>${t.rating_range}</strong></p>
+        <p><em>${t.rating_updated}</em></p>
+    `;
+    
+    modal.style.display = 'block';
+}
+
+function closeRatingModal() {
+    document.getElementById('ratingModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('ratingModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Toggle model details
+function toggleDetails(modelId) {
+    const detailsId = 'details_' + modelId.replace(/[^a-zA-Z0-9]/g, '_');
+    const detailsEl = document.getElementById(detailsId);
+    const btn = event.target;
+    
+    if (detailsEl.classList.contains('expanded')) {
+        detailsEl.classList.remove('expanded');
+        btn.textContent = (translations[currentLang].details || 'Details') + ' ▼';
+    } else {
+        // Close other open details first
+        document.querySelectorAll('.model-details.expanded').forEach(el => {
+            el.classList.remove('expanded');
+        });
+        document.querySelectorAll('.expand-btn').forEach(btn => {
+            btn.textContent = (translations[currentLang].details || 'Details') + ' ▼';
+        });
+        
+        detailsEl.classList.add('expanded');
+        btn.textContent = (translations[currentLang].details || 'Details') + ' ▲';
+    }
+}
+
+// Search highlight function
+function highlightText(text, searchTerm) {
+    if (!text || !searchTerm) return text;
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Compare functionality
+let compareList = [];
+
+function toggleCompare(modelId) {
+    const index = compareList.indexOf(modelId);
+    if (index > -1) {
+        compareList.splice(index, 1);
+    } else {
+        if (compareList.length >= 3) {
+            alert('Maximum 3 models can be compared');
+            // Uncheck the checkbox
+            event.target.checked = false;
+            return;
+        }
+        compareList.push(modelId);
+    }
+    updateCompareButton();
+}
+
+function updateCompareButton() {
+    const t = translations[currentLang];
+    let btn = document.getElementById('compareBtn');
+    if (!btn) {
+        // Create button if not exists
+        btn = document.createElement('button');
+        btn.id = 'compareBtn';
+        btn.className = 'compare-btn';
+        btn.onclick = showCompareModal;
+        document.body.appendChild(btn);
+    }
+    if (compareList.length >= 2) {
+        btn.classList.add('show');
+        btn.textContent = `${t.compare || 'Compare'} ${compareList.length} ${(t.compare || 'Compare') === 'Compare' ? 'Models' : ''}`;
+    } else {
+        btn.classList.remove('show');
+    }
+}
+
+function showCompareModal() {
+    if (compareList.length < 2) return;
+    
+    const modal = document.getElementById('compareModal');
+    const title = document.getElementById('compareTitle');
+    const content = document.getElementById('compareContent');
+    
+    const models = compareList.map(id => allModels.find(m => m.id === id)).filter(Boolean);
+    
+    title.textContent = `Model Comparison (${models.length})`;
+    
+    let html = '<table class="compare-table"><tr><th>Attribute</th>';
+    models.forEach(m => { html += `<th>${m.name}</th>`; });
+    html += '</tr>';
+    
+    // ID
+    html += '<tr><td><strong>ID</strong></td>';
+    models.forEach(m => { html += `<td>${m.id}</td>`; });
+    html += '</tr>';
+    
+    // Provider
+    html += '<tr><td><strong>Provider</strong></td>';
+    models.forEach(m => { html += `<td>${m.provider}</td>`; });
+    html += '</tr>';
+    
+    // Parameters
+    html += '<tr><td><strong>Parameters</strong></td>';
+    models.forEach(m => { html += `<td>${m.parameters || 'N/A'}</td>`; });
+    html += '</tr>';
+    
+    // Context Length
+    html += '<tr><td><strong>Context Length</strong></td>';
+    models.forEach(m => { html += `<td>${formatContextLength(m.context_length)}</td>`; });
+    html += '</tr>';
+    
+    // Score
+    html += '<tr><td><strong>Score</strong></td>';
+    models.forEach(m => { html += `<td>${m.score ? m.score + '/5.0' : 'N/A'}</td>`; });
+    html += '</tr>';
+    
+    // Tools
+    html += '<tr><td><strong>Tools</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_tools ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    // Vision
+    html += '<tr><td><strong>Vision</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_vision ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    // Reasoning
+    html += '<tr><td><strong>Reasoning</strong></td>';
+    models.forEach(m => { html += `<td>${m.has_reasoning ? '✅' : '❌'}</td>`; });
+    html += '</tr>';
+    
+    html += '</table>';
+    content.innerHTML = html;
+    modal.style.display = 'block';
+}
+
+function closeCompareModal() {
+    document.getElementById('compareModal').style.display = 'none';
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const ratingModal = document.getElementById('ratingModal');
+    const compareModal = document.getElementById('compareModal');
+    if (event.target == ratingModal) {
+        ratingModal.style.display = 'none';
+    }
+    if (event.target == compareModal) {
+        compareModal.style.display = 'none';
+    }
+};
