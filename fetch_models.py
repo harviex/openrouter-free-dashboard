@@ -77,6 +77,9 @@ def extract_model_info(model):
     model_name = model.get('name', '')
     parameters = extract_parameters(model_name, model_id)
     
+    # Get paid model pricing (remove :free suffix)
+    paid_pricing = get_paid_pricing(model_id)
+    
     # Get expiration date
     expiration = model.get('expiration_date', None)
     
@@ -102,6 +105,7 @@ def extract_model_info(model):
         'has_reasoning': has_reasoning,
         'pricing_prompt': float(model.get('pricing', {}).get('prompt', '0')),
         'pricing_completion': float(model.get('pricing', {}).get('completion', '0')),
+        'paid_pricing': paid_pricing,
         'created': model.get('created', 0),
         'description': model.get('description', ''),
         'supported_parameters': model.get('supported_parameters', []),
@@ -110,6 +114,56 @@ def extract_model_info(model):
         'usage_volume': usage_display,
         'usage_raw': usage_volume
     }
+
+def get_paid_pricing(free_model_id):
+    """Get pricing from the non-free version of the model"""
+    # Remove :free suffix to get paid model ID
+    if free_model_id.endswith(':free'):
+        paid_model_id = free_model_id[:-5]  # Remove ':free'
+    else:
+        return None
+    
+    # Call OpenRouter API to get paid model info
+    url = f"https://openrouter.ai/api/v1/models/{paid_model_id}"
+    try:
+        # Create request with proper headers
+        req = urllib.request.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0')
+        
+        with urllib.request.urlopen(req, timeout=10) as response:
+            data = json.loads(response.read().decode())
+            model_data = data.get('data', {})
+            
+            # If data is a list, take the first one
+            if isinstance(model_data, list):
+                if len(model_data) > 0:
+                    model_data = model_data[0]
+                else:
+                    return None
+            
+            pricing = model_data.get('pricing', {})
+            
+            # Convert to $/1M tokens
+            prompt_per_token = float(pricing.get('prompt', '0'))
+            completion_per_token = float(pricing.get('completion', '0'))
+            
+            # If both are 0, it's a free model
+            if prompt_per_token == 0 and completion_per_token == 0:
+                return None
+            
+            # Convert to $/1M tokens
+            prompt_per_1m = round(prompt_per_token * 1000000, 6)
+            completion_per_1m = round(completion_per_token * 1000000, 6)
+            
+            return {
+                'prompt': prompt_per_1m,
+                'completion': completion_per_1m
+            }
+    except urllib.error.HTTPError as e:
+        # Model not found (404) or other HTTP error
+        return None
+    except Exception as e:
+        return None
 
 def extract_parameters(model_name, model_id):
     """Extract parameter count from model name or id"""
