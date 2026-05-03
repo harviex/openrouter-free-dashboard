@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-02 02:07:30 UTC",
+  "last_updated": "2026-05-03 02:13:23 UTC",
   "total_models": 29,
   "total_providers": 14,
   "providers": [
@@ -30,6 +30,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1773245239,
       "description": "NVIDIA Nemotron 3 Super is a 120B-parameter open hybrid MoE model, activating just 12B parameters for maximum compute efficiency and accuracy in complex multi-agent applications. Built on a hybrid Mamba-Transformer...",
       "supported_parameters": [
@@ -48,6 +49,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free",
       "usage_volume": "677.0B",
       "usage_raw": 677,
+      "requests_per_day": null,
       "score": 5.0
     },
     {
@@ -55,12 +57,13 @@
       "name": "Tencent: Hy3 preview (free)",
       "provider": "Tencent",
       "context_length": 262144,
-      "parameters": null,
+      "parameters": "295B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1776878150,
       "description": "Hy3 preview is a high-efficiency Mixture-of-Experts model from Tencent designed for agentic workflows and production use. It supports configurable reasoning levels across disabled, low, and high modes, allowing it to...",
       "supported_parameters": [
@@ -80,6 +83,7 @@
       "model_url": "https://openrouter.ai/tencent/hy3-preview:free",
       "usage_volume": "638.0B",
       "usage_raw": 638,
+      "requests_per_day": null,
       "score": 5.0
     },
     {
@@ -87,12 +91,13 @@
       "name": "inclusionAI: Ling-2.6-1T (free)",
       "provider": "Inclusionai",
       "context_length": 262144,
-      "parameters": null,
+      "parameters": "1T",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1776948238,
       "description": "Ling-2.6-1T is an instant (instruct) model from inclusionAI and the company’s trillion-parameter flagship, designed for real-world agents that require fast execution and high efficiency at scale. It uses a “fast...",
       "supported_parameters": [
@@ -114,6 +119,7 @@
       "model_url": "https://openrouter.ai/inclusionai/ling-2.6-1t:free",
       "usage_volume": "369.0B",
       "usage_raw": 369,
+      "requests_per_day": null,
       "score": 2.9
     },
     {
@@ -121,12 +127,13 @@
       "name": "MiniMax: MiniMax M2.5 (free)",
       "provider": "Minimax",
       "context_length": 196608,
-      "parameters": null,
+      "parameters": "35B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1770908502,
       "description": "MiniMax-M2.5 is a SOTA large language model designed for real-world productivity. Trained in a diverse range of complex real-world digital working environments, M2.5 builds upon the coding expertise of M2.1...",
       "supported_parameters": [
@@ -143,6 +150,7 @@
       "model_url": "https://openrouter.ai/minimax/minimax-m2.5:free",
       "usage_volume": "97.7B",
       "usage_raw": 97.7,
+      "requests_per_day": null,
       "score": 1.0
     },
     {
@@ -156,6 +164,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1753230546,
       "description": "Qwen3-Coder-480B-A35B-Instruct is a Mixture-of-Experts (MoE) code generation model developed by the Qwen team. It is optimized for agentic coding tasks such as function calling, tool use, and long-context reasoning over...",
       "supported_parameters": [
@@ -173,6 +182,7 @@
       "model_url": "https://openrouter.ai/qwen/qwen3-coder:free",
       "usage_volume": "94.2B",
       "usage_raw": 94.2,
+      "requests_per_day": null,
       "score": 0.9
     },
     {
@@ -186,6 +196,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1754414229,
       "description": "gpt-oss-20b is an open-weight 21B parameter model released by OpenAI under the Apache 2.0 license. It uses a Mixture-of-Experts (MoE) architecture with 3.6B active parameters per forward pass, optimized for...",
       "supported_parameters": [
@@ -202,6 +213,7 @@
       "model_url": "https://openrouter.ai/openai/gpt-oss-20b:free",
       "usage_volume": "52.3B",
       "usage_raw": 52.3,
+      "requests_per_day": null,
       "score": 0.7
     },
     {
@@ -215,6 +227,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1733506137,
       "description": "The Meta Llama 3.3 multilingual large language model (LLM) is a pretrained and instruction tuned generative model in 70B (text in/text out). The Llama 3.3 instruction tuned text only model...",
       "supported_parameters": [
@@ -232,6 +245,7 @@
       "model_url": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct:free",
       "usage_volume": "45.2B",
       "usage_raw": 45.2,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -245,6 +259,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1754414231,
       "description": "gpt-oss-120b is an open-weight, 117B-parameter Mixture-of-Experts (MoE) language model from OpenAI designed for high-reasoning, agentic, and general-purpose production use cases. It activates 5.1B parameters per forward pass and is optimized...",
       "supported_parameters": [
@@ -261,6 +276,7 @@
       "model_url": "https://openrouter.ai/openai/gpt-oss-120b:free",
       "usage_volume": "38.5B",
       "usage_raw": 38.5,
+      "requests_per_day": null,
       "score": 0.6
     },
     {
@@ -274,6 +290,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1727222400,
       "description": "Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it...",
       "supported_parameters": [
@@ -289,6 +306,7 @@
       "model_url": "https://openrouter.ai/meta-llama/llama-3.2-3b-instruct:free",
       "usage_volume": "35.6B",
       "usage_raw": 35.6,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -302,6 +320,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1765731275,
       "description": "NVIDIA Nemotron 3 Nano 30B A3B is a small language MoE model with highest compute efficiency and accuracy for developers to build specialized agentic AI systems. The model is fully...",
       "supported_parameters": [
@@ -318,6 +337,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free",
       "usage_volume": "28.7B",
       "usage_raw": 28.7,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -331,6 +351,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1741756359,
       "description": "Gemma 3 introduces multimodality, supporting vision-language input and text outputs. It handles context windows up to 128k tokens, understands over 140 languages, and offers improved math, reasoning, and chat capabilities,...",
       "supported_parameters": [
@@ -345,6 +366,7 @@
       "model_url": "https://openrouter.ai/google/gemma-3-27b-it:free",
       "usage_volume": "22.4B",
       "usage_raw": 22.4,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -358,6 +380,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1741905510,
       "description": "Gemma 3 introduces multimodality, supporting vision-language input and text outputs. It handles context windows up to 128k tokens, understands over 140 languages, and offers improved math, reasoning, and chat capabilities,...",
       "supported_parameters": [
@@ -372,6 +395,7 @@
       "model_url": "https://openrouter.ai/google/gemma-3-4b-it:free",
       "usage_volume": "19.3B",
       "usage_raw": 19.3,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -385,6 +409,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1757106807,
       "description": "NVIDIA-Nemotron-Nano-9B-v2 is a large language model (LLM) trained from scratch by NVIDIA, and designed as a unified model for both reasoning and non-reasoning tasks. It responds to user queries and...",
       "supported_parameters": [
@@ -403,6 +428,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-9b-v2:free",
       "usage_volume": "18.7B",
       "usage_raw": 18.7,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -416,6 +442,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1775148486,
       "description": "Gemma 4 31B Instruct is Google DeepMind's 30.7B dense multimodal model supporting text and image input with text output. Features a 256K token context window, configurable thinking/reasoning mode, native function...",
       "supported_parameters": [
@@ -433,6 +460,7 @@
       "model_url": "https://openrouter.ai/google/gemma-4-31b-it:free",
       "usage_volume": "16.1B",
       "usage_raw": 16.1,
+      "requests_per_day": null,
       "score": 0.5
     },
     {
@@ -440,12 +468,13 @@
       "name": "Z.ai: GLM 4.5 Air (free)",
       "provider": "Z Ai",
       "context_length": 131072,
-      "parameters": null,
+      "parameters": "45B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1753471258,
       "description": "GLM-4.5-Air is the lightweight variant of our latest flagship model family, also purpose-built for agent-centric applications. Like GLM-4.5, it adopts the Mixture-of-Experts (MoE) architecture but with a more compact parameter...",
       "supported_parameters": [
@@ -461,6 +490,7 @@
       "model_url": "https://openrouter.ai/z-ai/glm-4.5-air:free",
       "usage_volume": "15.8B",
       "usage_raw": 15.8,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -474,6 +504,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1723766400,
       "description": "Hermes 3 is a generalist language model with many improvements over Hermes 2, including advanced agentic capabilities, much better roleplaying, reasoning, multi-turn conversation, long context coherence, and improvements across the...",
       "supported_parameters": [
@@ -489,6 +520,7 @@
       "model_url": "https://openrouter.ai/nousresearch/hermes-3-llama-3.1-405b:free",
       "usage_volume": "12.3B",
       "usage_raw": 12.3,
+      "requests_per_day": null,
       "score": 0.1
     },
     {
@@ -502,6 +534,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1775227989,
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "supported_parameters": [
@@ -519,6 +552,7 @@
       "model_url": "https://openrouter.ai/google/gemma-4-26b-a4b-it:free",
       "usage_volume": "9.3B",
       "usage_raw": 9.26,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -532,6 +566,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1761675565,
       "description": "NVIDIA Nemotron Nano 2 VL is a 12-billion-parameter open multimodal reasoning model designed for video understanding and document intelligence. It introduces a hybrid Transformer-Mamba architecture, combining transformer-level accuracy with Mamba’s...",
       "supported_parameters": [
@@ -548,6 +583,7 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-12b-v2-vl:free",
       "usage_volume": "8.9B",
       "usage_raw": 8.9,
+      "requests_per_day": null,
       "score": 0.4
     },
     {
@@ -561,6 +597,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1752094966,
       "description": "Venice Uncensored Dolphin Mistral 24B Venice Edition is a fine-tuned variant of Mistral-Small-24B-Instruct-2501, developed by dphn.ai in collaboration with Venice.ai. This model is designed as an “uncensored” instruct-tuned LLM, preserving...",
       "supported_parameters": [
@@ -578,6 +615,7 @@
       "model_url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition:free",
       "usage_volume": "7.6B",
       "usage_raw": 7.6,
+      "requests_per_day": null,
       "score": 0.0
     },
     {
@@ -585,12 +623,13 @@
       "name": "Baidu: Qianfan-OCR-Fast (free)",
       "provider": "Baidu",
       "context_length": 65536,
-      "parameters": null,
+      "parameters": "4B",
       "has_tools": false,
       "has_vision": true,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1776707472,
       "description": "Qianfan-OCR-Fast is a domain-specific multimodal large model purpose-built for OCR. By leveraging specialized OCR training data while preserving versatile multimodal intelligence, it provides a powerful performance upgrade over Qianfan-OCR.",
       "supported_parameters": [
@@ -609,6 +648,7 @@
       "model_url": "https://openrouter.ai/baidu/qianfan-ocr-fast:free",
       "usage_volume": "5.2B",
       "usage_raw": 5.2,
+      "requests_per_day": null,
       "score": 0.2
     },
     {
@@ -622,6 +662,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1768927521,
       "description": "LFM2.5-1.2B-Instruct is a compact, high-performance instruction-tuned model built for fast on-device AI. It delivers strong chat quality in a 1.2B parameter footprint, with efficient edge inference and broad runtime support.",
       "supported_parameters": [
@@ -640,6 +681,7 @@
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-instruct:free",
       "usage_volume": "4.5B",
       "usage_raw": 4.5,
+      "requests_per_day": null,
       "score": 0.0
     },
     {
@@ -653,6 +695,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1768927527,
       "description": "LFM2.5-1.2B-Thinking is a lightweight reasoning-focused model optimized for agentic tasks, data extraction, and RAG—while still running comfortably on edge devices. It supports long context (up to 32K tokens) and is...",
       "supported_parameters": [
@@ -673,6 +716,7 @@
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-1.2b-thinking:free",
       "usage_volume": "3.8B",
       "usage_raw": 3.8,
+      "requests_per_day": null,
       "score": 0.1
     },
     {
@@ -686,6 +730,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1757612213,
       "description": "Qwen3-Next-80B-A3B-Instruct is an instruction-tuned chat model in the Qwen3-Next series optimized for fast, stable responses without “thinking” traces. It targets complex tasks across reasoning, code generation, knowledge QA, and multilingual...",
       "supported_parameters": [
@@ -704,7 +749,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/qwen/qwen3-next-80b-a3b-instruct:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -717,6 +763,7 @@
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1777393095,
       "description": "NVIDIA Nemotron™ 3 Nano Omni is a 30B-A3B open multimodal model designed to function as a perception and context sub-agent in enterprise agent systems. It accepts text, image, video, and...",
       "supported_parameters": [
@@ -732,19 +779,21 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "poolside/laguna-xs.2:free",
       "name": "Poolside: Laguna XS.2 (free)",
       "provider": "Poolside",
       "context_length": 131072,
-      "parameters": null,
+      "parameters": "33B-A3B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1777389604,
       "description": "Laguna XS.2 is the second-generation model in the XS size class from [Poolside](https://poolside.ai), their efficient coding agent series. It combines tool calling and reasoning capabilities with a compact footprint, offering...",
       "supported_parameters": [
@@ -758,19 +807,21 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-xs.2:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "poolside/laguna-m.1:free",
       "name": "Poolside: Laguna M.1 (free)",
       "provider": "Poolside",
       "context_length": 131072,
-      "parameters": null,
+      "parameters": "225B-A23B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1777388504,
       "description": "Laguna M.1 is the flagship coding agent model from [Poolside](https://poolside.ai), optimized for complex software engineering tasks. Designed for agentic coding workflows, it supports tool calling and reasoning, with a 128K...",
       "supported_parameters": [
@@ -784,7 +835,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-m.1:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3-12b-it:free",
@@ -797,6 +849,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1741902625,
       "description": "Gemma 3 introduces multimodality, supporting vision-language input and text outputs. It handles context windows up to 128k tokens, understands over 140 languages, and offers improved math, reasoning, and chat capabilities,...",
       "supported_parameters": [
@@ -809,7 +862,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3-12b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3n-e2b-it:free",
@@ -822,6 +876,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1752074904,
       "description": "Gemma 3n E2B IT is a multimodal, instruction-tuned model developed by Google DeepMind, designed to operate efficiently at an effective parameter size of 2B while leveraging a 6B architecture. Based...",
       "supported_parameters": [
@@ -834,7 +889,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3n-e2b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     },
     {
       "id": "google/gemma-3n-e4b-it:free",
@@ -847,6 +903,7 @@
       "has_reasoning": false,
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
+      "paid_pricing": null,
       "created": 1747776824,
       "description": "Gemma 3n E4B-it is optimized for efficient execution on mobile and low-resource devices, such as phones, laptops, and tablets. It supports multimodal inputs—including text, visual data, and audio—enabling diverse tasks...",
       "supported_parameters": [
@@ -859,7 +916,8 @@
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/gemma-3n-e4b-it:free",
       "usage_volume": null,
-      "usage_raw": null
+      "usage_raw": null,
+      "requests_per_day": null
     }
   ]
 }

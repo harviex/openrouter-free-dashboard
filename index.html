@@ -40,13 +40,12 @@
             <div class="filter-group">
                 <label data-i18n="sort_by">Sort by:</label>
                 <select id="sortBy" onchange="applyFilters()">
-                    <option value="parameters_high" data-i18n="sort_parameters_high" selected>Parameters (High to Low)</option>
+                    <option value="newest" data-i18n="sort_newest" selected>Newest First</option>
+                    <option value="parameters_high" data-i18n="sort_parameters_high">Parameters (High to Low)</option>
                     <option value="parameters_low" data-i18n="sort_parameters_low">Parameters (Low to High)</option>
-                    <option value="score" data-i18n="sort_score">Score (Highest First)</option>
                     <option value="context_length" data-i18n="sort_context_high">Context Length (High to Low)</option>
                     <option value="context_length_asc" data-i18n="sort_context_low">Context Length (Low to High)</option>
                     <option value="name" data-i18n="sort_name">Name (A-Z)</option>
-                    <option value="created" data-i18n="sort_newest">Newest First</option>
                 </select>
             </div>
 
@@ -93,24 +92,6 @@
             <div class="loading" data-i18n="loading">Loading models...</div>
         </section>
     </main>
-
-    <!-- Rating Info Modal -->
-    <div id="ratingModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeRatingModal()">&times;</span>
-            <h2 id="ratingModalTitle">Rating Info</h2>
-            <div id="ratingModalBody">
-                <p><strong>Score Formula:</strong></p>
-                <ul>
-                    <li><strong>40%</strong> - Community Popularity (Likes + Downloads from HuggingFace)</li>
-                    <li><strong>20%</strong> - Freshness (Days since model creation)</li>
-                    <li><strong>40%</strong> - Benchmark Performance (Presence of eval-results tag)</li>
-                </ul>
-                <p><strong>Score Range:</strong> 0.0 - 5.0</p>
-                <p><em>Updated daily via GitHub Actions</em></p>
-            </div>
-        </div>
-    </div>
 
     <footer class="footer">
         <div class="container">
