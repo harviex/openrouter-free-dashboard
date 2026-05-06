@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-05-06 02:11:40 UTC",
-  "total_models": 24,
+  "last_updated": "2026-05-06 13:03:19 UTC",
+  "total_models": 25,
   "total_providers": 14,
   "providers": [
     "Baidu",
@@ -720,6 +720,33 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "baidu/cobuddy:free",
+      "name": "Baidu Qianfan: CoBuddy (free)",
+      "provider": "Baidu",
+      "context_length": 131072,
+      "parameters": null,
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1778035480,
+      "description": "CoBuddy is a code generation model from Baidu, optimized for coding tasks and AI Agent workflows. It features high inference throughput and low end-to-end latency, with native support for tool...",
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "stop",
+        "tools"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/baidu/cobuddy:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
