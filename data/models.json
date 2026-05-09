@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-05-09 02:02:50 UTC",
-  "total_models": 25,
-  "total_providers": 14,
+  "last_updated": "2026-05-09 02:14:41 UTC",
+  "total_models": 24,
+  "total_providers": 13,
   "providers": [
     "Baidu",
     "Cognitivecomputations",
@@ -15,7 +15,6 @@
     "Openai",
     "Poolside",
     "Qwen",
-    "Tencent",
     "Z Ai"
   ],
   "models": [
@@ -49,40 +48,6 @@
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free",
       "usage_volume": "677.0B",
       "usage_raw": 677,
-      "requests_per_day": null,
-      "score": 5.0
-    },
-    {
-      "id": "tencent/hy3-preview:free",
-      "name": "Tencent: Hy3 preview (free)",
-      "provider": "Tencent",
-      "context_length": 262144,
-      "parameters": "295B",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1776878150,
-      "description": "Hy3 preview is a high-efficiency Mixture-of-Experts model from Tencent designed for agentic workflows and production use. It supports configurable reasoning levels across disabled, low, and high modes, allowing it to...",
-      "supported_parameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "stop",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/tencent/hy3-preview:free",
-      "usage_volume": "638.0B",
-      "usage_raw": 638,
       "requests_per_day": null,
       "score": 5.0
     },
