@@ -4,7 +4,8 @@ Fetch free models from OpenRouter API and generate JSON data file
 Only includes models with ':free' suffix. Adds usage volume data.
 """
 import json
-import urllib.request
+import subprocess
+import os
 from datetime import datetime, timedelta
 import re
 
@@ -28,8 +29,11 @@ PARAMETER_MAP = {
     'z-ai/glm-4.5-air:free': '45B',
     'nousresearch/hermes-3-llama-3.1-405b:free': '405B',
     'minimax/minimax-m2.5:free': '35B',
+    'inclusionai/ring-2.6-1t:free': '1T',
     'inclusionai/ling-2.6-1t:free': '1T',
     'inclusionai/ling-2.6-flash:free': '1T',
+    'arcee-ai/trinity-large-thinking:free': '398B',
+    'baidu/cobuddy:free': 'Unknown',
     'liquid/lfm-2.5-1.2b-thinking:free': '1.2B',
     'liquid/lfm-2.5-1.2b-instruct:free': '1.2B',
     'cognitivecomputations/dolphin-mistral-24b-venice-edition:free': '24B',
@@ -68,13 +72,20 @@ USAGE_DATA = {
 }
 
 def fetch_models():
-    """Fetch all models from OpenRouter API"""
+    """Fetch all models from OpenRouter API using curl"""
     url = "https://openrouter.ai/api/v1/models?output_modalities=text"
     
     try:
-        with urllib.request.urlopen(url) as response:
-            data = json.loads(response.read().decode())
-            return data.get('data', [])
+        result = subprocess.run(
+            ['curl', '-s', '--connect-timeout', '30', '--max-time', '60', '-H',
+             'User-Agent: Mozilla/5.0', url],
+            capture_output=True, text=True, timeout=90
+        )
+        if result.returncode != 0:
+            print(f"curl error: {result.stderr.strip()}")
+            return []
+        data = json.loads(result.stdout)
+        return data.get('data', [])
     except Exception as e:
         print(f"Error fetching models: {e}")
         return []
@@ -167,40 +178,42 @@ def get_paid_pricing(free_model_id):
         paid_model_id = free_model_id[:-5]  # Remove ':free'
     else:
         return None
-    
+
     # Call OpenRouter API to get paid model info
     url = f"https://openrouter.ai/api/v1/models/{paid_model_id}"
     try:
-        # Create request with proper headers
-        req = urllib.request.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0')
-        
-        with urllib.request.urlopen(req, timeout=10) as response:
-            data = json.loads(response.read().decode())
-            model_data = data.get('data', {})
-            
-            # If data is a list, take the first one
-            if isinstance(model_data, list):
-                if len(model_data) > 0:
-                    model_data = model_data[0]
-                else:
-                    return None
-            
-            pricing = model_data.get('pricing', {})
-            
-            # Convert to $/1M tokens
-            prompt_per_token = float(pricing.get('prompt', '0'))
-            completion_per_token = float(pricing.get('completion', '0'))
-            
-            # If both are 0, it's a free model
-            if prompt_per_token == 0 and completion_per_token == 0:
+        result = subprocess.run(
+            ['curl', '-s', '-L', '--connect-timeout', '15', '-H',
+             'User-Agent: Mozilla/5.0', url],
+            capture_output=True, text=True, timeout=30
+        )
+        if result.returncode != 0:
+            return None
+        data = json.loads(result.stdout)
+        model_data = data.get('data', {})
+
+        # If data is a list, take the first one
+        if isinstance(model_data, list):
+            if len(model_data) > 0:
+                model_data = model_data[0]
+            else:
                 return None
-            
-            # Convert to $/1M tokens
-            prompt_per_1m = round(prompt_per_token * 1000000, 6)
-            completion_per_1m = round(completion_per_token * 1000000, 6)
-            
-            return {
+
+        pricing = model_data.get('pricing', {})
+
+        # Convert to $/1M tokens
+        prompt_per_token = float(pricing.get('prompt', '0'))
+        completion_per_token = float(pricing.get('completion', '0'))
+
+        # If both are 0, it's a free model
+        if prompt_per_token == 0 and completion_per_token == 0:
+            return None
+
+        # Convert to $/1M tokens
+        prompt_per_1m = round(prompt_per_token * 1000000, 6)
+        completion_per_1m = round(completion_per_token * 1000000, 6)
+
+        return {
                 'prompt': prompt_per_1m,
                 'completion': completion_per_1m
             }
