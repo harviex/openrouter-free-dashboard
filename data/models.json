@@ -1,11 +1,12 @@
 {
-  "last_updated": "2026-05-13 02:34:50 UTC",
-  "total_models": 25,
-  "total_providers": 14,
+  "last_updated": "2026-05-14 02:35:49 UTC",
+  "total_models": 26,
+  "total_providers": 15,
   "providers": [
     "Arcee Ai",
     "Baidu",
     "Cognitivecomputations",
+    "Deepseek",
     "Google",
     "Inclusionai",
     "Liquid",
@@ -715,6 +716,32 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "deepseek/deepseek-v4-flash:free",
+      "name": "DeepSeek: DeepSeek V4 Flash (free)",
+      "provider": "Deepseek",
+      "context_length": 256000,
+      "parameters": null,
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1777000666,
+      "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and...",
+      "supported_parameters": [
+        "include_reasoning",
+        "reasoning",
+        "tool_choice",
+        "tools"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/deepseek/deepseek-v4-flash:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
