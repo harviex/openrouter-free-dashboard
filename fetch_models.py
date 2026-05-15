@@ -40,8 +40,8 @@ PARAMETER_MAP = {
     'baidu/qianfan-ocr-fast:free': '4B',
     'poolside/laguna-xs.2:free': '33B-A3B',
     'poolside/laguna-m.1:free': '225B-A23B',
-    'openrouter/free': 'Unknown',
     'deepseek/deepseek-v4-flash:free': '284B-A13B',
+    'openrouter/free': 'Unknown',
 }
 
 # Usage volume data (in billions of tokens, from OpenRouter free-models page)
