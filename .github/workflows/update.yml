@@ -32,6 +32,9 @@ jobs:
       
     - name: Fetch models data
       run: python fetch_models.py
+
+    - name: Add parameters from mapping
+      run: python add_parameters.py
       
     - name: Check for changes
       id: verify-changed-files

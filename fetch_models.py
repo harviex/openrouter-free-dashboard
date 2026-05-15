@@ -41,6 +41,7 @@ PARAMETER_MAP = {
     'poolside/laguna-xs.2:free': '33B-A3B',
     'poolside/laguna-m.1:free': '225B-A23B',
     'openrouter/free': 'Unknown',
+    'deepseek/deepseek-v4-flash:free': '284B-A13B',
 }
 
 # Usage volume data (in billions of tokens, from OpenRouter free-models page)
