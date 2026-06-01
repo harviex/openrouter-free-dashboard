@@ -1,14 +1,12 @@
 {
-  "last_updated": "2026-05-30 13:04:32 UTC",
-  "total_models": 23,
-  "total_providers": 13,
+  "last_updated": "2026-06-01 13:02:06 UTC",
+  "total_models": 21,
+  "total_providers": 11,
   "providers": [
     "Cognitivecomputations",
-    "Deepseek",
     "Google",
     "Liquid",
     "Meta Llama",
-    "Minimax",
     "Moonshotai",
     "Nousresearch",
     "Nvidia",
@@ -50,37 +48,6 @@
       "usage_raw": 677,
       "requests_per_day": null,
       "score": 5.0
-    },
-    {
-      "id": "minimax/minimax-m2.5:free",
-      "name": "MiniMax: MiniMax M2.5 (free)",
-      "provider": "Minimax",
-      "context_length": 204800,
-      "parameters": "230B-A10B",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1770908502,
-      "description": "MiniMax-M2.5 is a SOTA large language model designed for real-world productivity. Trained in a diverse range of complex real-world digital working environments, M2.5 builds upon the coding expertise of M2.1...",
-      "supported_parameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "response_format",
-        "seed",
-        "stop",
-        "temperature",
-        "tools"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/minimax/minimax-m2.5:free",
-      "usage_volume": "97.7B",
-      "usage_raw": 97.7,
-      "requests_per_day": null,
-      "score": 1.0
     },
     {
       "id": "qwen/qwen3-coder:free",
@@ -557,32 +524,6 @@
       "usage_raw": 3.8,
       "requests_per_day": null,
       "score": 0.1
-    },
-    {
-      "id": "deepseek/deepseek-v4-flash:free",
-      "name": "DeepSeek: DeepSeek V4 Flash (free)",
-      "provider": "Deepseek",
-      "context_length": 1048576,
-      "parameters": "284B-A13B",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1777000666,
-      "description": "DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window. It is designed for fast inference and...",
-      "supported_parameters": [
-        "include_reasoning",
-        "reasoning",
-        "tool_choice",
-        "tools"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/deepseek/deepseek-v4-flash:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
     },
     {
       "id": "poolside/laguna-xs.2:free",
