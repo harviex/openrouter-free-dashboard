@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-02 02:55:34 UTC",
+  "last_updated": "2026-06-02 13:01:25 UTC",
   "total_models": 21,
   "total_providers": 11,
   "providers": [
@@ -307,7 +307,7 @@
       "name": "Z.ai: GLM 4.5 Air (free)",
       "provider": "Z Ai",
       "context_length": 131072,
-      "parameters": "106B-A12B",
+      "parameters": "45B",
       "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
@@ -586,7 +586,7 @@
       "name": "MoonshotAI: Kimi K2.6 (free)",
       "provider": "Moonshotai",
       "context_length": 262144,
-      "parameters": "Unknown",
+      "parameters": null,
       "has_tools": true,
       "has_vision": true,
       "has_reasoning": true,
