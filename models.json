@@ -1,20 +1,18 @@
 {
-  "last_updated": "2026-06-09 13:05:24 UTC",
-  "total_models": 24,
-  "total_providers": 12,
+  "last_updated": "2026-06-12 13:02:52 UTC",
+  "total_models": 22,
+  "total_providers": 10,
   "providers": [
     "Cognitivecomputations",
     "Google",
     "Liquid",
     "Meta Llama",
-    "Moonshotai",
     "Nex Agi",
     "Nousresearch",
     "Nvidia",
     "Openai",
     "Poolside",
-    "Qwen",
-    "Z Ai"
+    "Qwen"
   ],
   "models": [
     {
@@ -304,36 +302,6 @@
       "score": 0.5
     },
     {
-      "id": "z-ai/glm-4.5-air:free",
-      "name": "Z.ai: GLM 4.5 Air (free)",
-      "provider": "Z Ai",
-      "context_length": 131072,
-      "parameters": "106B-A12B",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1753471258,
-      "description": "GLM-4.5-Air is the lightweight variant of our latest flagship model family, also purpose-built for agent-centric applications. Like GLM-4.5, it adopts the Mixture-of-Experts (MoE) architecture but with a more compact parameter...",
-      "supported_parameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_p"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/z-ai/glm-4.5-air:free",
-      "usage_volume": "15.8B",
-      "usage_raw": 15.8,
-      "requests_per_day": null,
-      "score": 0.4
-    },
-    {
       "id": "nousresearch/hermes-3-llama-3.1-405b:free",
       "name": "Nous: Hermes 3 405B Instruct (free)",
       "provider": "Nousresearch",
@@ -575,12 +543,8 @@
         "include_reasoning",
         "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
-        "seed",
-        "stop",
         "structured_outputs",
         "temperature",
         "tool_choice",
@@ -646,32 +610,6 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-m.1:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
-    },
-    {
-      "id": "moonshotai/kimi-k2.6:free",
-      "name": "MoonshotAI: Kimi K2.6 (free)",
-      "provider": "Moonshotai",
-      "context_length": 262144,
-      "parameters": "Unknown",
-      "has_tools": true,
-      "has_vision": true,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1776699402,
-      "description": "Kimi K2.6 is Moonshot AI's next-generation multimodal model, designed for long-horizon coding, coding-driven UI/UX generation, and multi-agent orchestration. It handles complex end-to-end coding tasks across Python, Rust, and Go, and...",
-      "supported_parameters": [
-        "include_reasoning",
-        "reasoning",
-        "tool_choice",
-        "tools"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/moonshotai/kimi-k2.6:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
