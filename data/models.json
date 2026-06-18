@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-18 02:55:06 UTC",
+  "last_updated": "2026-06-18 13:09:31 UTC",
   "total_models": 23,
   "total_providers": 11,
   "providers": [
@@ -598,6 +598,8 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
+        "response_format",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
