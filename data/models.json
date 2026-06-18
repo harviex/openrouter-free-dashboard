@@ -1,9 +1,10 @@
 {
-  "last_updated": "2026-06-17 03:25:21 UTC",
-  "total_models": 22,
-  "total_providers": 10,
+  "last_updated": "2026-06-18 02:55:06 UTC",
+  "total_models": 23,
+  "total_providers": 11,
   "providers": [
     "Cognitivecomputations",
+    "Cohere",
     "Google",
     "Liquid",
     "Meta Llama",
@@ -98,6 +99,7 @@
         "frequency_penalty",
         "include_reasoning",
         "max_tokens",
+        "min_p",
         "presence_penalty",
         "reasoning",
         "repetition_penalty",
@@ -108,6 +110,7 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_a",
         "top_k",
         "top_p"
       ],
@@ -167,12 +170,16 @@
       "supported_parameters": [
         "include_reasoning",
         "max_tokens",
+        "min_p",
         "reasoning",
         "seed",
         "stop",
         "temperature",
         "tool_choice",
-        "tools"
+        "tools",
+        "top_a",
+        "top_k",
+        "top_p"
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/openai/gpt-oss-120b:free",
@@ -292,6 +299,7 @@
       "supported_parameters": [
         "include_reasoning",
         "max_tokens",
+        "min_p",
         "reasoning",
         "response_format",
         "seed",
@@ -299,6 +307,8 @@
         "temperature",
         "tool_choice",
         "tools",
+        "top_a",
+        "top_k",
         "top_p"
       ],
       "expiration_date": null,
@@ -583,7 +593,7 @@
       "pricing_completion": 0.0,
       "paid_pricing": null,
       "created": 1777389604,
-      "description": "Laguna XS.2 is the second-generation model in the XS size class from [Poolside](https://poolside.ai), their efficient coding agent series. It combines tool calling and reasoning capabilities with a compact footprint, offering...",
+      "description": "Laguna XS.2 is the second-generation model in the XS size class from [Poolside](https://poolside.ai/), their efficient coding agent series. It combines tool calling and reasoning capabilities with a compact footprint, offering...",
       "supported_parameters": [
         "include_reasoning",
         "max_tokens",
@@ -616,6 +626,7 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
@@ -655,6 +666,40 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/qwen/qwen3-next-80b-a3b-instruct:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "cohere/north-mini-code:free",
+      "name": "Cohere: North Mini Code (free)",
+      "provider": "Cohere",
+      "context_length": 256000,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1781723748,
+      "description": "North Mini Code is Cohere's first agentic coding model and the debut of its North family. A sparse mixture-of-experts model with 30B total parameters and 3B active, it is optimized...",
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "seed",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/cohere/north-mini-code:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
