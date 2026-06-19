@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-18 13:09:31 UTC",
+  "last_updated": "2026-06-19 13:02:22 UTC",
   "total_models": 23,
   "total_providers": 11,
   "providers": [
@@ -470,6 +470,7 @@
         "repetition_penalty",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "top_k",
         "top_p"
@@ -487,7 +488,7 @@
       "provider": "Liquid",
       "context_length": 32768,
       "parameters": "1.2B",
-      "has_tools": false,
+      "has_tools": true,
       "has_vision": false,
       "has_reasoning": true,
       "pricing_prompt": 0.0,
@@ -505,7 +506,10 @@
         "repetition_penalty",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
+        "tool_choice",
+        "tools",
         "top_k",
         "top_p"
       ],
@@ -514,7 +518,7 @@
       "usage_volume": "3.8B",
       "usage_raw": 3.8,
       "requests_per_day": null,
-      "score": 0.1
+      "score": 0.3
     },
     {
       "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
@@ -574,7 +578,7 @@
         "top_k",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-06-22",
       "model_url": "https://openrouter.ai/nex-agi/nex-n2-pro:free",
       "usage_volume": null,
       "usage_raw": null,
@@ -598,8 +602,6 @@
         "include_reasoning",
         "max_tokens",
         "reasoning",
-        "response_format",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
@@ -623,12 +625,11 @@
       "pricing_completion": 0.0,
       "paid_pricing": null,
       "created": 1777388504,
-      "description": "Laguna M.1 is the flagship coding agent model from [Poolside](https://poolside.ai), optimized for complex software engineering tasks. Designed for agentic coding workflows, it supports tool calling and reasoning, with a 128K...",
+      "description": "Laguna M.1 is the flagship coding agent model from [Poolside](https://poolside.ai/), optimized for complex software engineering tasks. Designed for agentic coding workflows, it supports tool calling and reasoning, with a 256K...",
       "supported_parameters": [
         "include_reasoning",
         "max_tokens",
         "reasoning",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools"
