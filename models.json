@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-19 13:02:22 UTC",
+  "last_updated": "2026-06-22 13:00:48 UTC",
   "total_models": 23,
   "total_providers": 11,
   "providers": [
@@ -567,18 +567,16 @@
       "supported_parameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
         "reasoning",
         "response_format",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
         "top_k",
         "top_p"
       ],
-      "expiration_date": "2026-06-22",
+      "expiration_date": null,
       "model_url": "https://openrouter.ai/nex-agi/nex-n2-pro:free",
       "usage_volume": null,
       "usage_raw": null,
