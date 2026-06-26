@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-25 02:40:48 UTC",
+  "last_updated": "2026-06-26 02:44:14 UTC",
   "total_models": 22,
   "total_providers": 10,
   "providers": [
@@ -371,6 +371,7 @@
         "response_format",
         "seed",
         "stop",
+        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
