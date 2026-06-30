@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29 13:01:48 UTC",
+  "last_updated": "2026-06-30 02:44:23 UTC",
   "total_models": 22,
   "total_providers": 10,
   "providers": [
@@ -572,7 +572,7 @@
         "tool_choice",
         "tools"
       ],
-      "expiration_date": null,
+      "expiration_date": "9999-01-01",
       "model_url": "https://openrouter.ai/poolside/laguna-xs.2:free",
       "usage_volume": null,
       "usage_raw": null,
