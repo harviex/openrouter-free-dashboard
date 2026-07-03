@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-02 02:40:10 UTC",
-  "total_models": 22,
+  "last_updated": "2026-07-03 02:21:55 UTC",
+  "total_models": 23,
   "total_providers": 10,
   "providers": [
     "Cognitivecomputations",
@@ -546,6 +546,34 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "poolside/laguna-xs-2.1:free",
+      "name": "Poolside: Laguna XS 2.1 (free)",
+      "provider": "Poolside",
+      "context_length": 262144,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1783002429,
+      "description": "Laguna XS 2.1 is the latest coding agent model in the 33B-A3B category from [Poolside](https://poolside.ai/) and a step forward from their Laguna XS.2 model (released in April 2026). It combines...",
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "temperature",
+        "tool_choice",
+        "tools"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/poolside/laguna-xs-2.1:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
