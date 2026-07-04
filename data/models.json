@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-03 13:00:57 UTC",
+  "last_updated": "2026-07-04 02:13:35 UTC",
   "total_models": 23,
   "total_providers": 10,
   "providers": [
@@ -97,6 +97,7 @@
       "supported_parameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "min_p",
         "presence_penalty",
@@ -111,6 +112,7 @@
         "tools",
         "top_a",
         "top_k",
+        "top_logprobs",
         "top_p"
       ],
       "expiration_date": null,
@@ -364,6 +366,7 @@
       "supported_parameters": [
         "frequency_penalty",
         "include_reasoning",
+        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -376,6 +379,7 @@
         "tool_choice",
         "tools",
         "top_k",
+        "top_logprobs",
         "top_p"
       ],
       "expiration_date": null,
