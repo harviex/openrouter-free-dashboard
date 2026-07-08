@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-07 13:01:21 UTC",
+  "last_updated": "2026-07-08 02:03:43 UTC",
   "total_models": 24,
   "total_providers": 11,
   "providers": [
@@ -585,7 +585,7 @@
         "top_k",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-07-21",
       "model_url": "https://openrouter.ai/tencent/hy3:free",
       "usage_volume": null,
       "usage_raw": null,
