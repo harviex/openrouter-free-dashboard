@@ -1,14 +1,13 @@
 {
-  "last_updated": "2026-07-20 13:00:47 UTC",
-  "total_models": 14,
-  "total_providers": 6,
+  "last_updated": "2026-07-21 02:02:05 UTC",
+  "total_models": 13,
+  "total_providers": 5,
   "providers": [
     "Cohere",
     "Google",
     "Nvidia",
     "Openai",
-    "Poolside",
-    "Tencent"
+    "Poolside"
   ],
   "models": [
     {
@@ -280,43 +279,6 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
-    },
-    {
-      "id": "tencent/hy3:free",
-      "name": "Tencent: Hy3 (free)",
-      "provider": "Tencent",
-      "context_length": 262144,
-      "parameters": "Unknown",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1783344048,
-      "description": "Hy3 is a 295B-parameter Mixture-of-Experts model from Tencent (21B active, 192 experts with top-8 routing) built for reasoning, agentic workflows, and real-world production use. It supports a configurable reasoning effort:...",
-      "supported_parameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "presence_penalty",
-        "reasoning",
-        "reasoning_effort",
-        "repetition_penalty",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ],
-      "expiration_date": "2026-07-21",
-      "model_url": "https://openrouter.ai/tencent/hy3:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
