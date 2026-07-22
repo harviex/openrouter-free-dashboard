@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-21 13:01:11 UTC",
-  "total_models": 13,
+  "last_updated": "2026-07-22 13:01:10 UTC",
+  "total_models": 14,
   "total_providers": 5,
   "providers": [
     "Cohere",
@@ -14,7 +14,7 @@
       "id": "nvidia/nemotron-3-super-120b-a12b:free",
       "name": "NVIDIA: Nemotron 3 Super (free)",
       "provider": "Nvidia",
-      "context_length": 1000000,
+      "context_length": 262144,
       "parameters": "120B",
       "has_tools": true,
       "has_vision": false,
@@ -279,6 +279,34 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "poolside/laguna-s-2.1:free",
+      "name": "Poolside: Laguna S 2.1 (free)",
+      "provider": "Poolside",
+      "context_length": 262144,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1784652683,
+      "description": "Laguna S 2.1 is the latest coding agent model from [Poolside](<https://poolside.ai/>). Laguna S 2.1 is a 118B total parameter model with 8B active parameters, scoring 70.2% on Terminal-Bench 2.1 and...",
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "temperature",
+        "tool_choice",
+        "tools"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/poolside/laguna-s-2.1:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
