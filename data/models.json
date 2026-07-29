@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-28 01:55:49 UTC",
-  "total_models": 15,
+  "last_updated": "2026-07-29 01:58:53 UTC",
+  "total_models": 14,
   "total_providers": 6,
   "providers": [
     "Cohere",
@@ -373,34 +373,6 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/poolside/laguna-xs-2.1:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
-    },
-    {
-      "id": "poolside/laguna-m.1:free",
-      "name": "Poolside: Laguna M.1 (free)",
-      "provider": "Poolside",
-      "context_length": 262144,
-      "parameters": "225B-A23B",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1777388504,
-      "description": "Laguna M.1 is the flagship coding agent model from [Poolside](https://poolside.ai/), optimized for complex software engineering tasks. Designed for agentic coding workflows, it supports tool calling and reasoning, with a 256K...",
-      "supported_parameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "temperature",
-        "tool_choice",
-        "tools"
-      ],
-      "expiration_date": "2026-07-28",
-      "model_url": "https://openrouter.ai/poolside/laguna-m.1:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
