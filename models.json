@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-04 13:01:05 UTC",
+  "last_updated": "2026-08-09 13:01:44 UTC",
   "total_models": 14,
   "total_providers": 6,
   "providers": [
@@ -285,8 +285,8 @@
       "requests_per_day": null
     },
     {
-      "id": "inclusionai/ling-3.0-flash:free",
-      "name": "Ling-3.0-flash (free)",
+      "id": "inclusionai/ling-3.0-tiny:free",
+      "name": "inclusionAI: Ling 3.0 Tiny (free)",
       "provider": "Inclusionai",
       "context_length": 262144,
       "parameters": "Unknown",
@@ -296,8 +296,8 @@
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
       "paid_pricing": null,
-      "created": 1784818580,
-      "description": "*Ling-3.0-flash* is a *124B-parameter Mixture-of-Experts (MoE) model*, with approximately *5.1B parameters activated per token*. The model is designed with *token efficiency and production-scale agentic inference* as key priorities, enabling developers...",
+      "created": 1786034890,
+      "description": "Ling 3.0 Tiny is a mixture-of-experts model from InclusionAI, with 1.3B active parameters out of 7.9B total. It is designed for responsive agents, instruction following, and multi-turn conversations, with switchable...",
       "supported_parameters": [
         "frequency_penalty",
         "include_reasoning",
@@ -316,7 +316,7 @@
         "top_p"
       ],
       "expiration_date": null,
-      "model_url": "https://openrouter.ai/inclusionai/ling-3.0-flash:free",
+      "model_url": "https://openrouter.ai/inclusionai/ling-3.0-tiny:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
