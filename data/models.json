@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-08-16 00:54:11 UTC",
-  "total_models": 16,
-  "total_providers": 7,
+  "last_updated": "2026-08-17 00:52:04 UTC",
+  "total_models": 17,
+  "total_providers": 8,
   "providers": [
     "Cohere",
     "Dots Studio",
@@ -9,7 +9,8 @@
     "Liquid",
     "Nvidia",
     "Openai",
-    "Poolside"
+    "Poolside",
+    "Z Ai"
   ],
   "models": [
     {
@@ -503,6 +504,41 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-2.6b:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "z-ai/glm-5.2:free",
+      "name": "Z.ai: GLM 5.2 (free)",
+      "provider": "Z Ai",
+      "context_length": 128000,
+      "parameters": "Unknown",
+      "has_tools": false,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1781631930,
+      "description": "GLM 5.2 is a large-scale reasoning model from Z.ai. It supports text input and output with a 1M-token context window, and is suited for long-horizon agent workflows, project-level software engineering,...",
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "reasoning_effort",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "temperature",
+        "top_k",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/z-ai/glm-5.2:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
