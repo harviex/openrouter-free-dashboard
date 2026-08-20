@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-19 00:51:25 UTC",
+  "last_updated": "2026-08-20 00:51:18 UTC",
   "total_models": 17,
   "total_providers": 8,
   "providers": [
@@ -112,7 +112,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-08-24",
       "model_url": "https://openrouter.ai/nvidia/nemotron-3-nano-30b-a3b:free",
       "usage_volume": "28.7B",
       "usage_raw": 28.7,
@@ -145,7 +145,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-08-24",
       "model_url": "https://openrouter.ai/nvidia/nemotron-nano-9b-v2:free",
       "usage_volume": "18.7B",
       "usage_raw": 18.7,
