@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-20 00:51:18 UTC",
+  "last_updated": "2026-08-21 00:54:58 UTC",
   "total_models": 17,
   "total_providers": 8,
   "providers": [
@@ -199,22 +199,14 @@
       "created": 1775227989,
       "description": "Gemma 4 26B A4B IT is an instruction-tuned Mixture-of-Experts (MoE) model from Google DeepMind. Despite 25.2B total parameters, only 3.8B activate per token during inference — delivering near-31B quality at...",
       "supported_parameters": [
-        "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
-        "presence_penalty",
         "reasoning",
-        "repetition_penalty",
         "response_format",
         "seed",
-        "stop",
-        "structured_outputs",
         "temperature",
         "tool_choice",
         "tools",
-        "top_k",
-        "top_logprobs",
         "top_p"
       ],
       "expiration_date": null,
@@ -341,7 +333,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-09-30",
       "model_url": "https://openrouter.ai/dots-studio/dots-3-note-preview:free",
       "usage_volume": null,
       "usage_raw": null,
