@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-09-10 02:32:54 UTC",
-  "total_models": 18,
+  "last_updated": "2026-09-11 02:27:02 UTC",
+  "total_models": 19,
   "total_providers": 9,
   "providers": [
     "Cohere",
@@ -129,7 +129,6 @@
       "supported_parameters": [
         "frequency_penalty",
         "include_reasoning",
-        "logprobs",
         "max_tokens",
         "presence_penalty",
         "reasoning",
@@ -138,7 +137,6 @@
         "stop",
         "temperature",
         "tools",
-        "top_logprobs",
         "top_p"
       ],
       "expiration_date": null,
@@ -268,6 +266,43 @@
       ],
       "expiration_date": "2026-09-30",
       "model_url": "https://openrouter.ai/dots-studio/dots-3-note-preview:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "inclusionai/ling-3.0-flash-vl:free",
+      "name": "inclusionAI: Ling 3.0 Flash VL (free)",
+      "provider": "Inclusionai",
+      "context_length": 262144,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": true,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1789056114,
+      "description": "Ling 3.0 Flash VL builds on Ling 3.0 Flash (124B total / 5.5B active MoE from InclusionAI), further strengthening its language capabilities while adding native visual perception and advanced visual...",
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "seed",
+        "stop",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/inclusionai/ling-3.0-flash-vl:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
