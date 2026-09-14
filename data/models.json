@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-13 02:33:40 UTC",
+  "last_updated": "2026-09-14 02:49:52 UTC",
   "total_models": 19,
   "total_providers": 9,
   "providers": [
@@ -631,8 +631,7 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs",
-        "top_p"
+        "top_logprobs"
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-2.6b:free",
