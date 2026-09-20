@@ -74,7 +74,7 @@ USAGE_DATA = {
 
 def fetch_models():
     """Fetch all models from OpenRouter API using curl"""
-    url = "https://openrouter.ai/api/v1/models?output_modalities=text"
+    url = "https://openrouter.ai/api/v1/models"
     
     try:
         result = subprocess.run(
@@ -357,13 +357,23 @@ def main():
     
     print(f"Total models fetched: {len(all_models)}")
     
-    # Filter ONLY models with ':free' suffix
-    free_models = [m for m in all_models if m.get('id', '').endswith(':free')]
-    print(f"Models with ':free' suffix: {len(free_models)}")
+    # Filter free models: either :free suffix OR pricing == 0
+    free_by_suffix = [m for m in all_models if m.get('id', '').endswith(':free')]
+    free_by_pricing = [m for m in all_models if is_free_model(m) and not m.get('id', '').endswith(':free')]
     
-    # Double-check they are actually free
-    verified_free = [m for m in free_models if is_free_model(m)]
-    print(f"Verified free models: {len(verified_free)}")
+    print(f"Models with ':free' suffix: {len(free_by_suffix)}")
+    print(f"Models free by pricing (no :free suffix): {len(free_by_pricing)}")
+    
+    # Combine and deduplicate by id
+    seen_ids = set()
+    verified_free = []
+    for m in free_by_suffix + free_by_pricing:
+        mid = m.get('id', '')
+        if mid not in seen_ids:
+            seen_ids.add(mid)
+            verified_free.append(m)
+    
+    print(f"Total verified free models: {len(verified_free)}")
     
     # Get last_updated time (for analytics calculation)
     last_updated = datetime.now()
