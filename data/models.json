@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-21 02:46:31 UTC",
+  "last_updated": "2026-09-22 02:47:22 UTC",
   "total_models": 24,
   "total_providers": 12,
   "providers": [
@@ -436,7 +436,7 @@
         "top_logprobs",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-09-25",
       "model_url": "https://openrouter.ai/nex-agi/nex-n2.5-mini:free",
       "usage_volume": null,
       "usage_raw": null,
@@ -471,7 +471,7 @@
         "top_logprobs",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-09-25",
       "model_url": "https://openrouter.ai/nex-agi/nex-n2.5-pro:free",
       "usage_volume": null,
       "usage_raw": null,
