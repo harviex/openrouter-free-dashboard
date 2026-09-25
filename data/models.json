@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-24 02:37:33 UTC",
+  "last_updated": "2026-09-25 02:54:40 UTC",
   "total_models": 24,
   "total_providers": 13,
   "providers": [
@@ -365,7 +365,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": "2098-12-31",
+      "expiration_date": null,
       "model_url": "https://openrouter.ai/stealth/space-bunny-alpha",
       "usage_volume": null,
       "usage_raw": null,
@@ -396,7 +396,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": "2026-12-31",
+      "expiration_date": null,
       "model_url": "https://openrouter.ai/dots-studio/dots-3-note-preview:free",
       "usage_volume": null,
       "usage_raw": null,
