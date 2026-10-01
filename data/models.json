@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-30 03:26:51 UTC",
+  "last_updated": "2026-10-01 03:32:27 UTC",
   "total_models": 20,
   "total_providers": 11,
   "providers": [
@@ -363,7 +363,7 @@
         "tools",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-10-05",
       "model_url": "https://openrouter.ai/stealth/space-bunny-alpha",
       "usage_volume": null,
       "usage_raw": null,
