@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-10-15 02:42:51 UTC",
-  "total_models": 17,
+  "last_updated": "2026-10-16 02:39:08 UTC",
+  "total_models": 18,
   "total_providers": 8,
   "providers": [
     "Cohere",
@@ -270,6 +270,38 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/google/lyria-3-clip-preview",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl:free",
+      "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+      "provider": "Nvidia",
+      "context_length": 1000000,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": true,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1792076662,
+      "description": "NVIDIA Nemotron 3.5 Super VL is an open multimodal mixture-of-experts model from NVIDIA, with 12B active parameters out of 120B total. It takes text, images, documents, GUI screenshots, and video...",
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "seed",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/nvidia/nemotron-3.5-super-vl:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
