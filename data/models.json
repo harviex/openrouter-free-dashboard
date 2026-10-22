@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-10-21 02:51:02 UTC",
-  "total_models": 20,
-  "total_providers": 10,
+  "last_updated": "2026-10-22 02:49:40 UTC",
+  "total_models": 21,
+  "total_providers": 11,
   "providers": [
     "Cohere",
     "Dots Studio",
@@ -11,6 +11,7 @@
     "Nvidia",
     "Openrouter",
     "Poolside",
+    "Recursive",
     "Thinkingmachines",
     "Xingchen Agi"
   ],
@@ -427,6 +428,39 @@
       ],
       "expiration_date": "2026-12-31",
       "model_url": "https://openrouter.ai/dots-studio/dots-3-note-preview:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "recursive/flint-v1.0:free",
+      "name": "Recursive: Flint (free)",
+      "provider": "Recursive",
+      "context_length": 262144,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1792622765,
+      "description": "Flint is an open-weight mixture-of-experts model from Recursive, with about 2.5B active parameters out of 40B total, built by Recursive's autoresearch system Eureka Machine for coding agents. It is suited...",
+      "supported_parameters": [
+        "include_reasoning",
+        "logprobs",
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "seed",
+        "stop",
+        "temperature",
+        "tools",
+        "top_logprobs",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/recursive/flint-v1.0:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
