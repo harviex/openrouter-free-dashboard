@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-03 04:53:18 UTC",
-  "total_models": 17,
-  "total_providers": 9,
+  "last_updated": "2026-11-04 04:21:38 UTC",
+  "total_models": 18,
+  "total_providers": 10,
   "providers": [
     "Cohere",
     "Dots Studio",
@@ -10,6 +10,7 @@
     "Nvidia",
     "Openrouter",
     "Recursive",
+    "Stealth",
     "Thinkingmachines",
     "Xingchen Agi"
   ],
@@ -183,6 +184,38 @@
       ],
       "expiration_date": "2026-11-04",
       "model_url": "https://openrouter.ai/thinkingmachines/inkling:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
+      "id": "stealth/crouton-alpha",
+      "name": "Crouton Alpha",
+      "provider": "Stealth",
+      "context_length": 1048576,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": true,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1793669930,
+      "description": "Crouton Alpha is a lightweight model built for scalable coding, agentic, and multimodal workflows. It's ideal for executing agentic sub-tasks, tool use, and document analysis in high-volume, repeated work. Developers...",
+      "supported_parameters": [
+        "include_reasoning",
+        "max_tokens",
+        "reasoning",
+        "reasoning_effort",
+        "response_format",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/stealth/crouton-alpha",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
@@ -560,7 +593,8 @@
         "tool_choice",
         "tools",
         "top_k",
-        "top_logprobs"
+        "top_logprobs",
+        "top_p"
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-2.6b:free",
