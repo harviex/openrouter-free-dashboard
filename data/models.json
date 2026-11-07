@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-06 04:38:29 UTC",
+  "last_updated": "2026-11-07 04:03:23 UTC",
   "total_models": 16,
   "total_providers": 9,
   "providers": [
@@ -332,6 +332,47 @@
       "requests_per_day": null
     },
     {
+      "id": "liquid/lfm-3-1.7b:free",
+      "name": "LiquidAI: LFM3-1.7B (free)",
+      "provider": "Liquid",
+      "context_length": 262144,
+      "parameters": "Unknown",
+      "has_tools": true,
+      "has_vision": false,
+      "has_reasoning": true,
+      "pricing_prompt": 0.0,
+      "pricing_completion": 0.0,
+      "paid_pricing": null,
+      "created": 1794009477,
+      "description": "A compact 1.7B-parameter text model with a 256K-token context, post-trained for agents, tool calling, and structured outputs. It reasons before it answers. Prompts and outputs may be retained and used...",
+      "supported_parameters": [
+        "frequency_penalty",
+        "include_reasoning",
+        "logprobs",
+        "max_completion_tokens",
+        "max_tokens",
+        "min_p",
+        "presence_penalty",
+        "reasoning",
+        "repetition_penalty",
+        "response_format",
+        "seed",
+        "stop",
+        "structured_outputs",
+        "temperature",
+        "tool_choice",
+        "tools",
+        "top_k",
+        "top_logprobs",
+        "top_p"
+      ],
+      "expiration_date": null,
+      "model_url": "https://openrouter.ai/liquid/lfm-3-1.7b:free",
+      "usage_volume": null,
+      "usage_raw": null,
+      "requests_per_day": null
+    },
+    {
       "id": "recursive/flint-v1.0:free",
       "name": "Recursive: Flint (free)",
       "provider": "Recursive",
@@ -467,34 +508,6 @@
       "requests_per_day": null
     },
     {
-      "id": "nvidia/nemotron-3.5-content-safety:free",
-      "name": "NVIDIA: Nemotron 3.5 Content Safety (free)",
-      "provider": "Nvidia",
-      "context_length": 128000,
-      "parameters": "Unknown",
-      "has_tools": false,
-      "has_vision": true,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1780581864,
-      "description": "NVIDIA Nemotron 3.5 Content Safety is a compact 4B-parameter multimodal guardrail model from NVIDIA, fine-tuned from Google Gemma-3-4B. It moderates both inputs to and responses from LLMs and VLMs, accepting...",
-      "supported_parameters": [
-        "include_reasoning",
-        "max_tokens",
-        "reasoning",
-        "seed",
-        "temperature",
-        "top_p"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/nvidia/nemotron-3.5-content-safety:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
-    },
-    {
       "id": "liquid/lfm-2.5-2.6b:free",
       "name": "LiquidAI: LFM2.5-2.6B (free)",
       "provider": "Liquid",
@@ -529,7 +542,7 @@
         "top_logprobs",
         "top_p"
       ],
-      "expiration_date": null,
+      "expiration_date": "2026-11-13",
       "model_url": "https://openrouter.ai/liquid/lfm-2.5-2.6b:free",
       "usage_volume": null,
       "usage_raw": null,
