@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-09 04:00:26 UTC",
+  "last_updated": "2026-11-10 05:33:58 UTC",
   "total_models": 16,
   "total_providers": 9,
   "providers": [
@@ -10,7 +10,7 @@
     "Nvidia",
     "Openrouter",
     "Recursive",
-    "Stealth",
+    "Thinkingmachines",
     "Xingchen Agi"
   ],
   "models": [
@@ -122,9 +122,9 @@
       "score": 0.4
     },
     {
-      "id": "stealth/crouton-alpha",
-      "name": "Crouton Alpha",
-      "provider": "Stealth",
+      "id": "thinkingmachines/inkling-2-small:free",
+      "name": "Thinking Machines: Inkling 2 Small (free)",
+      "provider": "Thinkingmachines",
       "context_length": 1048576,
       "parameters": "Unknown",
       "has_tools": true,
@@ -133,22 +133,21 @@
       "pricing_prompt": 0.0,
       "pricing_completion": 0.0,
       "paid_pricing": null,
-      "created": 1793669930,
-      "description": "Crouton Alpha is a lightweight model built for scalable coding, agentic, and multimodal workflows. It's ideal for executing agentic sub-tasks, tool use, and document analysis in high-volume, repeated work. Developers...",
+      "created": 1794261847,
+      "description": "Inkling 2 Small is a multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B total. It is the first model in the second Inkling...",
       "supported_parameters": [
         "include_reasoning",
         "max_tokens",
         "reasoning",
         "reasoning_effort",
-        "response_format",
-        "structured_outputs",
+        "seed",
+        "stop",
         "temperature",
-        "tool_choice",
         "tools",
         "top_p"
       ],
       "expiration_date": null,
-      "model_url": "https://openrouter.ai/stealth/crouton-alpha",
+      "model_url": "https://openrouter.ai/thinkingmachines/inkling-2-small:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
