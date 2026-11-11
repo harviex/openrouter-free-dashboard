@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-10 05:33:58 UTC",
-  "total_models": 16,
-  "total_providers": 9,
+  "last_updated": "2026-11-11 04:05:38 UTC",
+  "total_models": 15,
+  "total_providers": 8,
   "providers": [
     "Cohere",
     "Dots Studio",
@@ -10,8 +10,7 @@
     "Nvidia",
     "Openrouter",
     "Recursive",
-    "Thinkingmachines",
-    "Xingchen Agi"
+    "Thinkingmachines"
   ],
   "models": [
     {
@@ -400,44 +399,6 @@
       ],
       "expiration_date": null,
       "model_url": "https://openrouter.ai/recursive/flint-v1.0:free",
-      "usage_volume": null,
-      "usage_raw": null,
-      "requests_per_day": null
-    },
-    {
-      "id": "xingchen-agi/xing4.0-29b-a4b:free",
-      "name": "XingChen: Xing4.0 29B A4B (free)",
-      "provider": "Xingchen Agi",
-      "context_length": 262144,
-      "parameters": "Unknown",
-      "has_tools": true,
-      "has_vision": false,
-      "has_reasoning": true,
-      "pricing_prompt": 0.0,
-      "pricing_completion": 0.0,
-      "paid_pricing": null,
-      "created": 1792177496,
-      "description": "Xing4.0-29B-A4B is an open-weight mixture-of-experts language model from China Telecom's AI team (TeleAI) and the successor to the TeleChat series. It has 29B total parameters with 4B active per token...",
-      "supported_parameters": [
-        "frequency_penalty",
-        "include_reasoning",
-        "max_tokens",
-        "min_p",
-        "presence_penalty",
-        "reasoning",
-        "repetition_penalty",
-        "response_format",
-        "seed",
-        "stop",
-        "structured_outputs",
-        "temperature",
-        "tool_choice",
-        "tools",
-        "top_k",
-        "top_p"
-      ],
-      "expiration_date": null,
-      "model_url": "https://openrouter.ai/xingchen-agi/xing4.0-29b-a4b:free",
       "usage_volume": null,
       "usage_raw": null,
       "requests_per_day": null
